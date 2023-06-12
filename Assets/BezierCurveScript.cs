@@ -1,44 +1,25 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using DefaultNamespace.ScriptableObjects;
+using Unity.Mathematics;
 
 public class BezierCurveScript : MonoBehaviour
 {
     private readonly BezierPath path = new();
 
-    [SerializeField] private CoordsObject coords;
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private List<GameObject> objects;
+    [SerializeField] private CoordsObject coordsData;
+    private readonly List<GameObject> objects = new List<GameObject>();
+    //public CoordsObject coords;
+    //[SerializeField] private CoordsObject coords;
+    //[SerializeField] private GameObject prefab;
 
-    [SerializeField] private CoordsObject prefCoords;
-    [SerializeField] private GameObject prefab2;
-    [SerializeField] private List<GameObject> prefs;
-        
     private void Start()
     {
-         if (prefs.Count !> 1 || objects.Count! > 1)
-         {
-            return;
-         }
-
-        for (var i = 0; i < objects.Count; i++)
+        for (var i = 0; i < coordsData.Coords.Count; i++)
         {
-            objects[i].transform.position = coords.Coords[i];
-        }
-
-        for (var i = 0; i < prefs.Count; i++)
-        {
-            prefs[i].transform.position = prefCoords.Coords[i];
-        }
-
-        for (var i = 0; i < prefs.Count; i++)
-        {
-            prefs[i].transform.position = prefCoords.Coords[i];
-        }
-
-        for (var i = 0; i < objects.Count; i++)
-        {
-            objects[i].transform.position = coords.Coords[i];
+            GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i], Quaternion.identity, transform);
+            objects.Add(obj);
         }
 
         UpdatePath();
@@ -50,21 +31,20 @@ public class BezierCurveScript : MonoBehaviour
 
     private void CreateCube(Vector3 end)
     {
-        Instantiate(prefab, end, quaternion.identity, transform);
-        Instantiate(prefab2, end, quaternion.identity, transform);
+        Instantiate(coordsData.Prefab, end, quaternion.identity, transform);
     }
 
     private void UpdatePath()
     {
         var controlPoints = new List<Vector3>();
-        for (var i = 0; i < prefs.Count; i++)
+        for (var i = 0; i < objects.Count; i++)
         {
-            if (prefs[i] == null)
+            if (objects[i] == null)
             {
                 continue;
             }
 
-            Vector3 position = prefs[i].transform.position;
+            Vector3 position = objects[i].transform.position;
             controlPoints.Add(position);
         }
 

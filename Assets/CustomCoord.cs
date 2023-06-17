@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Mathematics;
 using System;
 
 namespace DefaultNamespace.ScriptableObjects
@@ -10,9 +9,9 @@ namespace DefaultNamespace.ScriptableObjects
     public class CustomCoord
     {
         [SerializeField] private CoordType name;
-        [SerializeField] private Vector2 value;
+        [SerializeField] private Vector3 value;
 
-        public Vector2 Value => value;
+        public Vector3 Value => value;
     }
 
 }

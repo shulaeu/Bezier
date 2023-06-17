@@ -13,8 +13,21 @@ MonoBehaviour:
   m_Name: Coords 1
   m_EditorClassIdentifier: 
   coords:
-  - {x: 0, y: 0, z: 0}
-  - {x: 5.3, y: 5.49, z: 0}
-  - {x: 0, y: 3.38, z: 4.52}
-  - {x: -8.95, y: 6.15, z: -2.3}
+  - name: 0
+    value: {x: 2, y: 1, z: 0}
+  - name: 1
+    value: {x: 3, y: 0, z: 3}
+  - name: 2
+    value: {x: 4, y: -4, z: 2}
+  - name: 3
+    value: {x: 1, y: 1, z: 1}
+  bezierCoords:
+  - startValue: {x: 2, y: 1, z: 0}
+    endValue: {x: 3, y: 0, z: 3}
+    topValue: {x: 4, y: -4, z: 2}
+    downValue: {x: 1, y: 1, z: 1}
+  - startValue: {x: 5, y: 8, z: 5}
+    endValue: {x: 3, y: 2, z: 2}
+    topValue: {x: 4, y: 1, z: 1}
+    downValue: {x: 1, y: 6, z: 1}
   prefab: {fileID: 5773584475356779682, guid: be5f709db6648d54cbe2c4ecdea5730a, type: 3}

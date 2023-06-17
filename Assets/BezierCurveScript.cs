@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using DefaultNamespace.ScriptableObjects;
-using Unity.Mathematics;
 
 public class BezierCurveScript : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class BezierCurveScript : MonoBehaviour
     {
         for (var i = 0; i < coordsData.Coords.Count; i++)
         {
-            GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i], Quaternion.identity, transform);
+            GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i].Value, Quaternion.identity, transform);
             objects.Add(obj);
         }
 
@@ -29,6 +28,21 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
+    private void InitCoord()
+    {
+    for (var i=0; i<coordsData.BezierCoords.Count; i++)
+        {
+            Vector3 startValue = coordsData.BezierCoords[i].StartValue;
+            Instantiate(coordsData.Prefab, startValue, Quaternion.identity, transform);
+            Vector3 topValue = coordsData.BezierCoords[i].TopValue;
+            Instantiate(coordsData.Prefab, topValue, Quaternion.identity, transform);
+            Vector3 downValue = coordsData.BezierCoords[i].DownValue;
+            Instantiate(coordsData.Prefab, downValue, Quaternion.identity, transform);
+            Vector3 endValue = coordsData.BezierCoords[i].EndValue;
+            Instantiate(coordsData.Prefab, endValue, Quaternion.identity, transform);
+        }
+    }
+
     private void CreateCube(Vector3 end)
     {
         Instantiate(coordsData.Prefab, end, quaternion.identity, transform);
@@ -36,19 +50,28 @@ public class BezierCurveScript : MonoBehaviour
 
     private void UpdatePath()
     {
-        var controlPoints = new List<Vector3>();
-        for (var i = 0; i < objects.Count; i++)
-        {
-            if (objects[i] == null)
-            {
-                continue;
-            }
-
-            Vector3 position = objects[i].transform.position;
-            controlPoints.Add(position);
-        }
-
         path.DeletePath();
-        path.CreateCurve(controlPoints);
+        for (var i = 0; i < coordsData.BezierCoords.Count; i++)
+        {
+            path.CreateCurve(coordsData.BezierCoords[i], coordsData.BezierCoords.Count);
+        }
+        //var controlPoints = new List<Vector3>();
+        //for (var i = 0; i < objects.Count; i++)
+        //{
+        //    if (objects[i] == null)
+        //    {
+        //        continue;
+        //    }
+
+        //    Vector3 position = objects[i].transform.position;
+        //    controlPoints.Add(position);
+        //}
+
+        //for (var i = 0; i < coordsData.BezierCoords.Count; i++)
+        //{
+        //    path.DeletePath();
+        //    path.CreateCurve(coordsData.BezierCoords[i],coordsData.BezierCoords.Count);
+        //    //path.CreateCurve(CoordsObject.BezierCoords[i], coordsData.BezierCoords.Count);
+        //}
     }
 }

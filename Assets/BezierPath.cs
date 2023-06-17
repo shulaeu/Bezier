@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DefaultNamespace.ScriptableObjects;
 
 
 public class BezierPath
@@ -35,21 +36,22 @@ public class BezierPath
         return b;
     }
 
-    public void CreateCurve(List<Vector3> controlPoints)
+    public void CreateCurve(BezierCoords controlPoints, int count)
     {
-        segments = controlPoints.Count / 3;
+        segments = count;
+        //segments = controlPoints.Count / 3;
 
-        for (var s = 0; s < controlPoints.Count - 3; s += 3)
-        {
-            Vector3 p0 = controlPoints[s];
-            Vector3 p1 = controlPoints[s + 1];
-            Vector3 p2 = controlPoints[s + 2];
-            Vector3 p3 = controlPoints[s + 3];
+        //for (var s = 0; s < controlPoints.Count - 3; s += 3)
+        //{
+            Vector3 p0 = controlPoints.StartValue;
+            Vector3 p1 = controlPoints.TopValue;
+            Vector3 p2 = controlPoints.DownValue;
+            Vector3 p3 = controlPoints.EndValue;
 
-            if (s == 0)
-            {
+            //if (s == 0)
+            //{
                 pathPoints.Add(BezierPathCalculation(p0, p1, p2, p3, 0.0f));
-            }
+           // }
 
             for (var p = 0; p < pointCount / segments; p++)
             {
@@ -57,6 +59,6 @@ public class BezierPath
                 Vector3 point = BezierPathCalculation(p0, p1, p2, p3, t);
                 pathPoints.Add(point);
             }
-        }
+        //}
     }
 }

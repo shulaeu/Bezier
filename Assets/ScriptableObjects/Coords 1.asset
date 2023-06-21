@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d894e1639487fa40b6c34d4d0c7e8aa, type: 3}
   m_Name: Coords 1
   m_EditorClassIdentifier: 
-  coords:
-  - name: 0
-    value: {x: 2, y: 1, z: 0}
-  - name: 1
-    value: {x: 3, y: 0, z: 3}
-  - name: 2
-    value: {x: 4, y: -4, z: 2}
-  - name: 3
-    value: {x: 1, y: 1, z: 1}
   bezierCoords:
   - startValue: {x: 2, y: 1, z: 0}
     endValue: {x: 3, y: 0, z: 3}
@@ -31,3 +22,7 @@ MonoBehaviour:
     topValue: {x: 4, y: 1, z: 1}
     downValue: {x: 1, y: 6, z: 1}
   prefab: {fileID: 5773584475356779682, guid: be5f709db6648d54cbe2c4ecdea5730a, type: 3}
+  prefabStart: {fileID: 5773584475356779682, guid: 64a00ebdc26f1074dbc3ddd370d8b2c8, type: 3}
+  prefabEnd: {fileID: 5773584475356779682, guid: c9d1d90d0999b5649a0c72687cfab672, type: 3}
+  prefabTop: {fileID: 5773584475356779682, guid: 2b23407f33b68a94684152d578c90810, type: 3}
+  prefabDown: {fileID: 5773584475356779682, guid: 415bb507025cf1a449687525290d7b72, type: 3}

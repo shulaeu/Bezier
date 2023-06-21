@@ -7,6 +7,9 @@ public class BezierCurveScript : MonoBehaviour
 {
     private readonly BezierPath path = new();
 
+    [SerializeField] private Material startMat;
+    [SerializeField] private Material endMat;
+    [SerializeField] private Material controlMat;
     [SerializeField] private CoordsObject coordsData;
     private readonly List<GameObject> objects = new List<GameObject>();
     //public CoordsObject coords;
@@ -15,12 +18,13 @@ public class BezierCurveScript : MonoBehaviour
 
     private void Start()
     {
-        for (var i = 0; i < coordsData.Coords.Count; i++)
-        {
-            GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i].Value, Quaternion.identity, transform);
-            objects.Add(obj);
-        }
+        //for (var i = 0; i < coordsData.Coords.Count; i++)
+        //{
+        //    GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i].Value, Quaternion.identity, transform);
+        //    objects.Add(obj);
+        //}
 
+        InitCoord();
         UpdatePath();
         for (var i = 1; i < path.pointCount; i++)
         {
@@ -33,13 +37,24 @@ public class BezierCurveScript : MonoBehaviour
     for (var i=0; i<coordsData.BezierCoords.Count; i++)
         {
             Vector3 startValue = coordsData.BezierCoords[i].StartValue;
-            Instantiate(coordsData.Prefab, startValue, Quaternion.identity, transform);
+            var startObj = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
+            var startMesh = startObj.GetComponent<MeshRenderer>();
+            startMesh.material = startMat;
+            
             Vector3 topValue = coordsData.BezierCoords[i].TopValue;
-            Instantiate(coordsData.Prefab, topValue, Quaternion.identity, transform);
+            var topObject = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
+            var topMesh = startObj.GetComponent<MeshRenderer>();
+            topMesh.material = controlMat;
+
             Vector3 downValue = coordsData.BezierCoords[i].DownValue;
-            Instantiate(coordsData.Prefab, downValue, Quaternion.identity, transform);
+            var downObject = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
+            var downMesh = startObj.GetComponent<MeshRenderer>();
+            downMesh.material = controlMat;
+
             Vector3 endValue = coordsData.BezierCoords[i].EndValue;
-            Instantiate(coordsData.Prefab, endValue, Quaternion.identity, transform);
+            var endObject = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
+            var endMesh = startObj.GetComponent<MeshRenderer>();
+            endMesh.material = endMat;
         }
     }
 

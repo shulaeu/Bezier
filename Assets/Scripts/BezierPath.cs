@@ -36,29 +36,23 @@ public class BezierPath
         return b;
     }
 
-    public void CreateCurve(BezierCoords controlPoints, int count)
+    public void CreateCurve(IBezierCoords controlPoints, int count)
     {
         segments = count;
-        //segments = controlPoints.Count / 3;
-
-        //for (var s = 0; s < controlPoints.Count - 3; s += 3)
-        //{
-            Vector3 p0 = controlPoints.StartValue;
-            Vector3 p1 = controlPoints.TopValue;
-            Vector3 p2 = controlPoints.DownValue;
-            Vector3 p3 = controlPoints.EndValue;
-
-            //if (s == 0)
-            //{
-                pathPoints.Add(BezierPathCalculation(p0, p1, p2, p3, 0.0f));
-           // }
-
-            for (var p = 0; p < pointCount / segments; p++)
-            {
-                float t = 1.0f / (pointCount / segments) * p;
-                Vector3 point = BezierPathCalculation(p0, p1, p2, p3, t);
-                pathPoints.Add(point);
-            }
-        //}
+        
+        Vector3 p0 = controlPoints.StartValue;
+        Vector3 p1 = controlPoints.TopValue;
+        Vector3 p2 = controlPoints.DownValue;
+        Vector3 p3 = controlPoints.EndValue;
+           
+        pathPoints.Add(BezierPathCalculation(p0, p1, p2, p3, 0.0f));
+          
+        for (var p = 0; p < pointCount / segments; p++)
+        {
+            float t = 1.0f / (pointCount / segments) * p;
+            Vector3 point = BezierPathCalculation(p0, p1, p2, p3, t);
+            pathPoints.Add(point);
+        }
+        
     }
 }

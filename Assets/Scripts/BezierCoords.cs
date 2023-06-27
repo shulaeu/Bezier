@@ -7,7 +7,7 @@ using System;
 namespace DefaultNamespace.ScriptableObjects
 {
     [Serializable]
-    public class BezierCoords
+    public class BezierCoords : IBezierCoords
     {
         [SerializeField] private Vector3 startValue;
         [SerializeField] private Vector3 endValue;

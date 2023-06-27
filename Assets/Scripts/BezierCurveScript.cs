@@ -12,23 +12,34 @@ public class BezierCurveScript : MonoBehaviour
     [SerializeField] private Material controlMat;
     [SerializeField] private CoordsObject coordsData;
     private readonly List<GameObject> objects = new List<GameObject>();
-    //public CoordsObject coords;
-    //[SerializeField] private CoordsObject coords;
-    //[SerializeField] private GameObject prefab;
+
+    private GameObject tempStart;
+    private GameObject tempEnd;
+    private GameObject tempTop;
+    private GameObject tempDown;
 
     private void Start()
     {
-        //for (var i = 0; i < coordsData.Coords.Count; i++)
-        //{
-        //    GameObject obj = Instantiate(coordsData.Prefab, coordsData.Coords[i].Value, Quaternion.identity, transform);
-        //    objects.Add(obj);
-        //}
-
+        
         InitCoord();
         UpdatePath();
         for (var i = 1; i < path.pointCount; i++)
         {
-            CreateCube(path.pathPoints[i]);
+            var obj = new RunTimeCoords
+                (tempStart.transform.localPosition,
+                tempEnd.transform.localPosition,
+                tempTop.transform.localPosition,
+                tempDown.transform.localPosition);
+                path.CreateCurve(obj,1);
+        }
+    }
+
+    private void Update()
+    {
+        path.DeletePath();
+        for (var i = 1; i < path.pointCount; i++)
+        {
+            path.CreateCurve(new RunTimeCoords(), 1);
         }
     }
 
@@ -37,30 +48,23 @@ public class BezierCurveScript : MonoBehaviour
     for (var i=0; i<coordsData.BezierCoords.Count; i++)
         {
             Vector3 startValue = coordsData.BezierCoords[i].StartValue;
-            var startObj = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
-            var startMesh = startObj.GetComponent<MeshRenderer>();
-            startMesh.material = startMat;
-            
+            tempStart = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
+           
             Vector3 topValue = coordsData.BezierCoords[i].TopValue;
-            var topObject = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
-            var topMesh = startObj.GetComponent<MeshRenderer>();
-            topMesh.material = controlMat;
-
+            tempTop = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
+            
             Vector3 downValue = coordsData.BezierCoords[i].DownValue;
-            var downObject = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
-            var downMesh = startObj.GetComponent<MeshRenderer>();
-            downMesh.material = controlMat;
-
+            tempDown = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
+           
             Vector3 endValue = coordsData.BezierCoords[i].EndValue;
-            var endObject = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
-            var endMesh = startObj.GetComponent<MeshRenderer>();
-            endMesh.material = endMat;
+            tempEnd = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
         }
     }
 
-    private void CreateCube(Vector3 end)
+    private void CreatePathGameObject(Vector3 end)
     {
-        Instantiate(coordsData.Prefab, end, quaternion.identity, transform);
+        GameObject obj = Instantiate(coordsData.Prefab, end, quaternion.identity, transform);
+        objects.Add(obj);
     }
 
     private void UpdatePath()
@@ -70,23 +74,5 @@ public class BezierCurveScript : MonoBehaviour
         {
             path.CreateCurve(coordsData.BezierCoords[i], coordsData.BezierCoords.Count);
         }
-        //var controlPoints = new List<Vector3>();
-        //for (var i = 0; i < objects.Count; i++)
-        //{
-        //    if (objects[i] == null)
-        //    {
-        //        continue;
-        //    }
-
-        //    Vector3 position = objects[i].transform.position;
-        //    controlPoints.Add(position);
-        //}
-
-        //for (var i = 0; i < coordsData.BezierCoords.Count; i++)
-        //{
-        //    path.DeletePath();
-        //    path.CreateCurve(coordsData.BezierCoords[i],coordsData.BezierCoords.Count);
-        //    //path.CreateCurve(CoordsObject.BezierCoords[i], coordsData.BezierCoords.Count);
-        //}
     }
 }

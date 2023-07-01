@@ -4,8 +4,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using System;
 
-namespace DefaultNamespace.ScriptableObjects
-{
+
     [Serializable]
     public class BezierCoords : IBezierCoords
     {
@@ -18,4 +17,3 @@ namespace DefaultNamespace.ScriptableObjects
         public Vector3 TopValue => topValue;
         public Vector3 DownValue => downValue;
     }
-}

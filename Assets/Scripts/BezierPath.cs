@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DefaultNamespace.ScriptableObjects;
+
 
 
 public class BezierPath

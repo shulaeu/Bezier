@@ -1,5 +1,6 @@
-namespace DefaultNamespace.ScriptableObjects
-{
+using UnityEngine;
+
+
     public interface IBezierCoords
     {
         public Vector3 StartValue { get; }
@@ -7,4 +8,3 @@ namespace DefaultNamespace.ScriptableObjects
         public Vector3 TopValue { get; }
         public Vector3 DownValue { get; }
     }
-}

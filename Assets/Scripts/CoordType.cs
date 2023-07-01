@@ -1,5 +1,4 @@
-namespace DefaultNamespace.ScriptableObjects
-{
+
     public enum CoordType
     {
         Start,
@@ -7,4 +6,3 @@ namespace DefaultNamespace.ScriptableObjects
         Top,
         Down 
     }
-}

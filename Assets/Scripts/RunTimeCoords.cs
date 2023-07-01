@@ -1,7 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.ScriptableObjects
-{
+
     public class RunTimeCoords : IBezierCoords
     {
     
@@ -18,4 +17,4 @@ namespace DefaultNamespace.ScriptableObjects
                 DownValue = downValue;
             }          
     }
-}
+

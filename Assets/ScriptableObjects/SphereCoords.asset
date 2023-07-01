@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d894e1639487fa40b6c34d4d0c7e8aa, type: 3}
-  m_Name: Coords 1
+  m_Name: SphereCoords
   m_EditorClassIdentifier: 
   bezierCoords:
-  - startValue: {x: 2, y: 1, z: 0}
+  - startValue: {x: 2, y: 8, z: 0}
     endValue: {x: 3, y: 0, z: 3}
-    topValue: {x: 4, y: -4, z: 2}
+    topValue: {x: 4, y: 4, z: 2}
     downValue: {x: 1, y: 1, z: 1}
   - startValue: {x: 5, y: 8, z: 5}
     endValue: {x: 3, y: 2, z: 2}

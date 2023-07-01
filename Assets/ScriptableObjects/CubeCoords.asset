@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d894e1639487fa40b6c34d4d0c7e8aa, type: 3}
-  m_Name: Coords
+  m_Name: CubeCoords
   m_EditorClassIdentifier: 
   bezierCoords:
   - startValue: {x: 0, y: 0, z: 0}
     endValue: {x: 2, y: 3, z: 2}
     topValue: {x: 6, y: 4, z: 3}
-    downValue: {x: -2, y: 0, z: 2}
+    downValue: {x: 2, y: 0, z: 2}
   prefab: {fileID: 6953694162081245048, guid: e02e1af6814448e4d9b9fefda5bcd3c8, type: 3}
   prefabStart: {fileID: 6953694162081245048, guid: 065f4288b814bba499980a073cb057ed, type: 3}
   prefabEnd: {fileID: 6953694162081245048, guid: 56e127c98293ebc4b811c3de6bf31a70, type: 3}

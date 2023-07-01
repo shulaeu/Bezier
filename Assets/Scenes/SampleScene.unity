@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce93b9b057f8aa24ba9fd247785c95e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMat: {fileID: 2100000, guid: 0c152f38e6a17c445b6fcce8c8e10f9e, type: 2}
+  endMat: {fileID: 2100000, guid: d156bdb2ca17ad044b04d9f4609d7a3b, type: 2}
+  controlMat: {fileID: 2100000, guid: cb7dd3128ef5237418cf1e7f9db9cd8e, type: 2}
   coordsData: {fileID: 11400000, guid: 3fe7a772bd8e3e74cbd2d7600284a80b, type: 2}
 --- !u!4 &50678159
 Transform:
@@ -443,6 +446,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce93b9b057f8aa24ba9fd247785c95e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startMat: {fileID: 2100000, guid: 0c152f38e6a17c445b6fcce8c8e10f9e, type: 2}
+  endMat: {fileID: 2100000, guid: d156bdb2ca17ad044b04d9f4609d7a3b, type: 2}
+  controlMat: {fileID: 2100000, guid: cb7dd3128ef5237418cf1e7f9db9cd8e, type: 2}
   coordsData: {fileID: 11400000, guid: 719fdd2feff12bc4b98b7f58c4f64313, type: 2}
 --- !u!4 &1379344579
 Transform:

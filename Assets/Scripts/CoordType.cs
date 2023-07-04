@@ -1,8 +1,8 @@
 
-    public enum CoordType
-    {
-        Start,
-        End,
-        Top,
-        Down 
-    }
+public enum CoordType
+{
+    Start,
+    End,
+    Top,
+    Down
+}

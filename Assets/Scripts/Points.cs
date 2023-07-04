@@ -7,7 +7,7 @@ public class Points
     private readonly GameObject tempTop;
     private readonly GameObject tempDown;
 
-    public Points()
+    public Points(GameObject tempStart, GameObject tempEnd, GameObject tempTop, GameObject tempDown)
     {
         this.tempStart = tempStart;
         this.tempEnd = tempEnd;

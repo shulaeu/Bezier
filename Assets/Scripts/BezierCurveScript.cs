@@ -10,20 +10,7 @@ public class BezierCurveScript : MonoBehaviour
     [SerializeField] private CoordsObject coordsData;
     private readonly List<GameObject> objects = new List<GameObject>();
     private List<Points> points = new List<Points>();
-
-    //[SerializeField] private Material startMat;
-    //[SerializeField] private Material endMat;
-    //[SerializeField] private Material controlMat;
-
-    private List<GameObject> tempStart = new List<GameObject>();
-    private List<GameObject> tempEnd = new List<GameObject>();
-    private List<GameObject> tempTop = new List<GameObject>();
-    private List<GameObject> tempDown = new List<GameObject>();
-
-    //private GameObject tempStart;
-    //private GameObject tempEnd;
-    //private GameObject tempTop;
-    //private GameObject tempDown;
+    private List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
 
     private void Start()
     {
@@ -33,6 +20,11 @@ public class BezierCurveScript : MonoBehaviour
         {
             CreatePathGameObject(path.pathPoints[i]);
         }
+    }
+
+    private void OnDestroy()
+    {
+        coordsData.SetBezierCoords(_runTimeCoordsList);
     }
 
     private void UpdatePath()
@@ -53,45 +45,48 @@ public class BezierCurveScript : MonoBehaviour
     private void RecreateCurve()
     {
         path.DeletePath();
+        _runTimeCoordsList.Clear();
         for (var i = 1; i < path.pointCount; i++)
         {
-            for (var j = 0; j < coordsData.BezierCoords.Count; j++)
-            {
-                Vector3 start = points[j].GetPosition(CoordType.Start);
-                Vector3 end = points[j].GetPosition(CoordType.End);
-                Vector3 top = points[j].GetPosition(CoordType.Top);
-                Vector3 down = points[j].GetPosition(CoordType.Down);
-                RunTimeCoords obj = new RunTimeCoords(start, end, top, down);
-                path.CreateCurve(obj, coordsData.BezierCoords.Count);
-            }
-            
+            for (int j = 0; j < coordsData.BezierCoords.Count; j++)
+            { }
+
+            Vector3 start = points[i].GetPosition(CoordType.Start);
+            Vector3 end = points[i].GetPosition(CoordType.End);
+            Vector3 top = points[i].GetPosition(CoordType.Top);
+            Vector3 down = points[i].GetPosition(CoordType.Down);
+            var obj = new RunTimeCoords(start, end, top, down);
+            _runTimeCoordsList.Add(obj);
+            path.CreateCurve(obj, coordsData.BezierCoords.Count);
         }
+
     }
+
 
     private void UpdatePoints()
     {
         for (var i = 1; i < path.pointCount; i++)
         {
-            int objI = i - 1;
+         int objI = i - 1;
             objects[objI].transform.position = path.pathPoints[objI];
         }
     }
-    
+
     private void InitCoord()
     {
-    for (var i=0; i<coordsData.BezierCoords.Count; i++)
+        for (var i = 0; i < coordsData.BezierCoords.Count; i++)
         {
             Vector3 startValue = coordsData.BezierCoords[i].StartValue;
-            tempStart[i] = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
+            GameObject start = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
 
             Vector3 endValue = coordsData.BezierCoords[i].EndValue;
-            tempEnd[i] = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
+            GameObject end = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
 
             Vector3 topValue = coordsData.BezierCoords[i].TopValue;
-            tempTop[i] = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
-            
+            GameObject top = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
+
             Vector3 downValue = coordsData.BezierCoords[i].DownValue;
-            tempDown[i] = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
+            GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
         }
     }
 

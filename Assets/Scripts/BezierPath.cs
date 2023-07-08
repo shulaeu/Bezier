@@ -9,10 +9,10 @@ public class BezierPath
     private int segments;
     public int pointCount;
 
-    public BezierPath()
+    public BezierPath(int amount)
     {
         pathPoints = new List<Vector3>();
-        pointCount = 20;
+        pointCount = amount;
     }
 
     public void DeletePath()

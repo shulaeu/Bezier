@@ -1,19 +1,24 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using static UnityEngine.Random;
 
 
 public class BezierCurveScript : MonoBehaviour
 {
-    private readonly BezierPath path = new();
 
+    [SerializeField] private int pointsAmount = 20;
+    //[SerializeField] private int pointsAmount = Random.Range(1,100);
     [SerializeField] private CoordsObject coordsData;
+
     private readonly List<GameObject> objects = new List<GameObject>();
     private List<Points> points = new List<Points>();
     private List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
+    private BezierPath path;
 
     private void Start()
     {
+        path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
         for (var i = 1; i < path.pointCount; i++)
@@ -22,10 +27,6 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        coordsData.SetBezierCoords(_runTimeCoordsList);
-    }
 
     private void UpdatePath()
     {
@@ -46,28 +47,24 @@ public class BezierCurveScript : MonoBehaviour
     {
         path.DeletePath();
         _runTimeCoordsList.Clear();
-        for (var i = 1; i < path.pointCount; i++)
-        {
-            for (int j = 0; j < coordsData.BezierCoords.Count; j++)
-            { }
 
-            Vector3 start = points[i].GetPosition(CoordType.Start);
-            Vector3 end = points[i].GetPosition(CoordType.End);
-            Vector3 top = points[i].GetPosition(CoordType.Top);
-            Vector3 down = points[i].GetPosition(CoordType.Down);
+        for (int j = 0; j < coordsData.BezierCoords.Count; j++)
+        {
+            Vector3 start = points[j].GetPosition(CoordType.Start);
+            Vector3 end = points[j].GetPosition(CoordType.End);
+            Vector3 top = points[j].GetPosition(CoordType.Top);
+            Vector3 down = points[j].GetPosition(CoordType.Down);
             var obj = new RunTimeCoords(start, end, top, down);
             _runTimeCoordsList.Add(obj);
             path.CreateCurve(obj, coordsData.BezierCoords.Count);
         }
-
     }
-
 
     private void UpdatePoints()
     {
         for (var i = 1; i < path.pointCount; i++)
         {
-         int objI = i - 1;
+            int objI = i - 1;
             objects[objI].transform.position = path.pathPoints[objI];
         }
     }
@@ -87,6 +84,7 @@ public class BezierCurveScript : MonoBehaviour
 
             Vector3 downValue = coordsData.BezierCoords[i].DownValue;
             GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
+            points.Add(new Points(start, end, top, down));
         }
     }
 

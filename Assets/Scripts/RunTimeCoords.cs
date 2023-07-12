@@ -3,18 +3,22 @@ using UnityEngine;
 
 public class RunTimeCoords : IBezierCoords
 {
+    [SerializeField] private Vector3 startValue;
+    [SerializeField] private Vector3 endValue;
+    [SerializeField] private Vector3 topValue;
+    [SerializeField] private Vector3 downValue;
 
-    public Vector3 StartValue { get; }
-    public Vector3 EndValue { get; }
-    public Vector3 TopValue { get; }
-    public Vector3 DownValue { get; }
+    public Vector3 StartValue => startValue;
+    public Vector3 EndValue => endValue;
+    public Vector3 TopValue => topValue;
+    public Vector3 DownValue => downValue;
 
     public RunTimeCoords(Vector3 startValue, Vector3 endValue, Vector3 topValue, Vector3 downValue)
     {
-        StartValue = startValue;
-        EndValue = endValue;
-        TopValue = topValue;
-        DownValue = downValue;
+        this.startValue = startValue;
+        this.endValue = endValue;
+        this.topValue = topValue;
+        this.downValue = downValue;
     }
 }
 

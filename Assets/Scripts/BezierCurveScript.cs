@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -18,6 +19,18 @@ public class BezierCurveScript : MonoBehaviour
 
     private void Start()
     {
+        try
+        {
+            var data = PlayerPrefs.GetString("jsonData");
+            var saveData = JsonUtility.FromJson<SaveJsonData>(data);
+            startCoords = new List<IBezierCoords>(saveData.runTimeCoordsList);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
         path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
@@ -27,6 +40,15 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        SaveJsonData data = new SaveJsonData(_runTimeCoordsList);
+        string jsonData = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString("jsonData","jsonData");
+        //var data = new SaveJsonData();
+        //string jsonData = JsonUtility.ToJson(_runTimeCoordsList);
+        //PlayerPrefs.SetString("Data", "str");
+    }
 
     private void UpdatePath()
     {
@@ -85,6 +107,7 @@ public class BezierCurveScript : MonoBehaviour
             Vector3 downValue = coordsData.BezierCoords[i].DownValue;
             GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
             points.Add(new Points(start, end, top, down));
+            
         }
     }
 

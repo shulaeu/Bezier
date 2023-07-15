@@ -6,6 +6,11 @@ using UnityEngine;
 [Serializable]
 public class SaveJsonData
 {
-    //private List<RunTimeCoords>
-    [SerializeField] private List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
+   public List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
+
+    [SerializeField]
+    public SaveJsonData(List<RunTimeCoords> _runTimeCoordsList)
+    {
+        this._runTimeCoordsList = _runTimeCoordsList;
+    }
 }

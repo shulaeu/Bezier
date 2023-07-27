@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "Coords", menuName = "Coordinates")]
 
 public class CoordsObject : ScriptableObject
@@ -13,8 +12,6 @@ public class CoordsObject : ScriptableObject
     [SerializeField] private GameObject prefabEnd;
     [SerializeField] private GameObject prefabTop;
     [SerializeField] private GameObject prefabDown;
-
-
     
     public List<BezierCoords> BezierCoords => bezierCoords;
     public GameObject Prefab => prefab;
@@ -30,12 +27,8 @@ public class CoordsObject : ScriptableObject
             if (i > bezierCoords.Count-1)
             {
                 break;
-        
             }
-            
             bezierCoords[i] = new BezierCoords(list[i]);
         }
-        
     }
 }
-

@@ -7,50 +7,60 @@ using static UnityEngine.Random;
 
 public class BezierCurveScript : MonoBehaviour
 {
-    [SerializeField] private string id;
+    //[SerializeField] private string id;
     [SerializeField] private int pointsAmount = 20;
     [SerializeField] private CoordsObject coordsData;
 
     private readonly List<GameObject> objects = new List<GameObject>();
     private List<Points> points = new List<Points>();
     private readonly List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
-    //private readonly List<RunTimeCoords<String>> _runTimeCoordsList = new List<RunTimeCoords<String>>();
+
     private BezierPath path;
 
-    private List<IBezierCoords> startCoords;
+    private List<IBezierCoords> startCoords = new List<IBezierCoords>();
+
+    public List<RunTimeCoords> RunTimeCoordsList()
+    {
+        return _runTimeCoordsList;
+    }
 
     private void Start()
     {
-        SetupStartData();
+        //SetupStartData();
         path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
-        for (var i = 1; i < path.pointCount; i++)
+        for (int i = 1; i < path.pointCount; i++)
         {
             CreatePathGameObject(path.pathPoints[i]);
         }
     }
 
-    private void SetupStartData()
+    public void SetupStartData(string jsonData)
     {
+        if (jsonData == string.Empty)
+        {
+            InitDefaultCoords();
+            return;
+        }
         string data = PlayerPrefs.GetString("jsonData");
-        //string data = PlayerPrefs.GetString($"{id} jsonData");
+        
         if (data == string.Empty)
         {
             InitDefaultCoords();
             return;
         }
 
-        try
-        {
-            SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(data);
-            startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
-            InitDefaultCoords();
-        }
-        catch (Exception _)
-        {
-            InitDefaultCoords();
-        }
+        //try
+        //{
+        //    SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(jsonData);
+        //    startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
+        //    InitDefaultCoords();
+        //}
+        //catch (Exception _)
+        //{
+        //    InitDefaultCoords();
+        //}
     }
 
     private void InitDefaultCoords()
@@ -86,6 +96,7 @@ public class BezierCurveScript : MonoBehaviour
 
     private void Update()
     {
+
         RecreateCurve();
         UpdatePoints();
     }
@@ -111,9 +122,11 @@ public class BezierCurveScript : MonoBehaviour
 
     private void UpdatePoints()
     {
-        for (var i = 1; i < path.pointCount; i++)
+        for (var i = 1; i < startCoords.Count; i++)
+        //for (var i = 1; i < path.pointCount; i++)
         {
             int objI = i - 1;
+            //int objI = 1;
             objects[objI].transform.position = path.pathPoints[objI];
         }
     }
@@ -121,7 +134,7 @@ public class BezierCurveScript : MonoBehaviour
     private void InitCoord()
     {
         for (var i = 0; i < startCoords.Count; i++)
-        {
+            {
             Vector3 startValue = startCoords[i].StartValue;
             GameObject start = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
 
@@ -140,7 +153,7 @@ public class BezierCurveScript : MonoBehaviour
 
     private void CreatePathGameObject(Vector3 end)
     {
-        GameObject obj = Instantiate(coordsData.Prefab, end, quaternion.identity, transform);
+        GameObject obj = Instantiate(coordsData.Prefab, end, Quaternion.identity, transform);
         objects.Add(obj);
     }
 }

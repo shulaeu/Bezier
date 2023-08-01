@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce93b9b057f8aa24ba9fd247785c95e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
   pointsAmount: 30
   coordsData: {fileID: 11400000, guid: 719fdd2feff12bc4b98b7f58c4f64313, type: 2}
 --- !u!4 &50678159
@@ -462,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30df55856b2cb534fa154067505825c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _curvescripts:
+  curveScripts:
   - {fileID: 1379344578}
   - {fileID: 50678158}
 --- !u!1 &1379344577
@@ -494,7 +493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce93b9b057f8aa24ba9fd247785c95e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
   pointsAmount: 120
   coordsData: {fileID: 11400000, guid: 3fe7a772bd8e3e74cbd2d7600284a80b, type: 2}
 --- !u!4 &1379344579

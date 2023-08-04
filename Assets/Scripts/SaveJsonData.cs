@@ -11,6 +11,8 @@ public class SaveJsonData
     [SerializeField]
     public SaveJsonData(List<RunTimeCoords> _runTimeCoordsList)
     {
+
+        //Debug.Log("runTime");
         this._runTimeCoordsList = _runTimeCoordsList;
     }
 }

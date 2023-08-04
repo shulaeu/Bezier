@@ -19,16 +19,4 @@ public class CoordsObject : ScriptableObject
     public GameObject EndPrefab => prefabEnd;
     public GameObject TopPrefab => prefabTop;
     public GameObject DownPrefab => prefabDown;
-
-    public void SetBezierCoords(List<RunTimeCoords> list)
-    {
-        for(int i = 0; i < list.Count; i++)
-        {
-            if (i > bezierCoords.Count-1)
-            {
-                break;
-            }
-            bezierCoords[i] = new BezierCoords(list[i]);
-        }
-    }
 }

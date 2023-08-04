@@ -7,7 +7,7 @@ using static UnityEngine.Random;
 
 public class BezierCurveScript : MonoBehaviour
 {
-    //[SerializeField] private string id;
+
     [SerializeField] private int pointsAmount = 20;
     [SerializeField] private CoordsObject coordsData;
 
@@ -24,9 +24,9 @@ public class BezierCurveScript : MonoBehaviour
         return _runTimeCoordsList;
     }
 
-    private void Start()
+    public void Init()
     {
-        //SetupStartData();
+        //Debug.Log("Init");
         path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
@@ -43,32 +43,24 @@ public class BezierCurveScript : MonoBehaviour
             InitDefaultCoords();
             return;
         }
-        string data = PlayerPrefs.GetString("jsonData");
-        
-        if (data == string.Empty)
+
+        try
+        {
+            SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(jsonData);
+            startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
+            InitDefaultCoords();
+        }
+        catch (Exception _)
         {
             InitDefaultCoords();
-            return;
         }
-
-        //try
-        //{
-        //    SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(jsonData);
-        //    startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
-        //    InitDefaultCoords();
-        //}
-        //catch (Exception _)
-        //{
-        //    InitDefaultCoords();
-        //}
     }
 
     private void InitDefaultCoords()
     {
         if (startCoords.Count == 0)
         {
-            startCoords = new List<IBezierCoords>(startCoords);
-            //startCoords = new List<IBezierCoords>(coordsData.BezierCoords);
+            startCoords = new List<IBezierCoords>(coordsData.BezierCoords);
         }
     }
 
@@ -86,27 +78,28 @@ public class BezierCurveScript : MonoBehaviour
     private void UpdatePath()
     {
         path.DeletePath();
-        //for (var i = 0; i < startCoords.Count; i++)
-        for (var i = 0; i < coordsData.BezierCoords.Count; i++)
+        for (var i = 0; i < startCoords.Count; i++)
+
         {
-            //path.CreateCurve(startCoords[i], startCoords.Count);
-            path.CreateCurve(coordsData.BezierCoords[i], coordsData.BezierCoords.Count);
+            path.CreateCurve(startCoords[i], startCoords.Count);
+
         }
     }
 
     private void Update()
     {
-
+        //Debug.Log("Update");
         RecreateCurve();
         UpdatePoints();
     }
 
     private void RecreateCurve()
     {
+        //Debug.Log("Recreate");
         path.DeletePath();
         _runTimeCoordsList.Clear();
 
-        //for (int i = 0; i < coordsData.BezierCoords.Count; i++)
+
         for (int i = 0; i < startCoords.Count; i++)
         {
             Vector3 start = points[i].GetPosition(CoordType.Start);
@@ -115,18 +108,24 @@ public class BezierCurveScript : MonoBehaviour
             Vector3 down = points[i].GetPosition(CoordType.Down);
             var obj = new RunTimeCoords(start, end, top, down);
             _runTimeCoordsList.Add(obj);
+            //Debug.Log("ObjData" +obj);
             path.CreateCurve(obj, startCoords.Count);
-            //path.CreateCurve(obj, coordsData.BezierCoords.Count);
+
         }
     }
 
     private void UpdatePoints()
     {
-        for (var i = 1; i < startCoords.Count; i++)
-        //for (var i = 1; i < path.pointCount; i++)
+        //Debug.Log("UpdatePoints");
+        //for (var i = 1; i < startCoords.Count; i++)
+        //{
+        //    int objI = i - 1;
+        //    objects[objI].transform.position = path.pathPoints[objI];
+        //}
+        
+        for(var i = 1; i < path.pointCount; i++)
         {
             int objI = i - 1;
-            //int objI = 1;
             objects[objI].transform.position = path.pathPoints[objI];
         }
     }
@@ -134,7 +133,9 @@ public class BezierCurveScript : MonoBehaviour
     private void InitCoord()
     {
         for (var i = 0; i < startCoords.Count; i++)
-            {
+        //Debug.Log("startCoords: "+startCoords.Count);
+        {
+            //Debug.Log($"startCoords: { startCoords.Count}");
             Vector3 startValue = startCoords[i].StartValue;
             GameObject start = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
 

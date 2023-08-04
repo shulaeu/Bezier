@@ -6,6 +6,11 @@ public class BezierListView : MonoBehaviour
 {
     [SerializeField] private List<BezierCurveScript> curveScripts;
 
+    //private void Update()
+    //{
+        
+    //}
+
     private void OnDestroy()
     {
         for (int i = 0; i < curveScripts.Count; i++)
@@ -20,9 +25,12 @@ public class BezierListView : MonoBehaviour
     {
         for (int i = 0; i < curveScripts.Count; i++)
         {
+            //Debug.Log("count" +curveScripts.Count);
             BezierCurveScript curveScript = curveScripts[i];
             string jsonData = PlayerPrefs.GetString($"{i}jsonData");
+            //Debug.Log("json1" $"{i} jsonData");
             curveScript.SetupStartData(jsonData);
+            curveScript.Init();
         }
     }
 }

@@ -116,17 +116,13 @@ public class BezierCurveScript : MonoBehaviour
 
     private void UpdatePoints()
     {
-        //Debug.Log("UpdatePoints");
-        //for (var i = 1; i < startCoords.Count; i++)
-        //{
-        //    int objI = i - 1;
-        //    objects[objI].transform.position = path.pathPoints[objI];
-        //}
-        
+        //Debug.Log("UpdatePoints");      
         for(var i = 1; i < path.pointCount; i++)
-        {
+        //for (var i = 1; i < points.Count; i++)
+            {
             int objI = i - 1;
             objects[objI].transform.position = path.pathPoints[objI];
+            //objects[objI].transform.position = points[objI];
         }
     }
 
@@ -156,5 +152,13 @@ public class BezierCurveScript : MonoBehaviour
     {
         GameObject obj = Instantiate(coordsData.Prefab, end, Quaternion.identity, transform);
         objects.Add(obj);
+    }
+
+    public void SetStartPointPosition(Vector3 position, CoordType type)
+    {
+        for (int i = 0; i < points.Count; i++)
+        {
+            points[i].SetPosition(position, type);
+        }
     }
 }

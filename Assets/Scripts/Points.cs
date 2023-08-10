@@ -15,6 +15,8 @@ public class Points
         this.tempDown = tempDown;
     }
 
+    
+
     public Vector3 GetPosition(CoordType type)
     {
         switch (type)
@@ -32,7 +34,7 @@ public class Points
         }
     }
 
-    public Vector3 SetPosition(Vector3 deltaPosition, CoordType type)
+    public void SetPosition(Vector3 deltaPosition, CoordType type)
     {
         switch (type)
         {
@@ -40,13 +42,13 @@ public class Points
                tempStart.transform.localPosition += deltaPosition;
                 break;
             case CoordType.End:
-                return tempEnd.transform.localPosition += deltaPosition;
+                tempEnd.transform.localPosition += deltaPosition;
                 break;
             case CoordType.Top:
-                return tempTop.transform.localPosition += deltaPosition;
+                tempTop.transform.localPosition += deltaPosition;
                 break;
             case CoordType.Down:
-                return tempDown.transform.localPosition += deltaPosition;
+                tempDown.transform.localPosition += deltaPosition;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);

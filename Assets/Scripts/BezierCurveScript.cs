@@ -79,10 +79,8 @@ public class BezierCurveScript : MonoBehaviour
     {
         path.DeletePath();
         for (var i = 0; i < startCoords.Count; i++)
-
         {
             path.CreateCurve(startCoords[i], startCoords.Count);
-
         }
     }
 
@@ -128,8 +126,8 @@ public class BezierCurveScript : MonoBehaviour
 
     private void InitCoord()
     {
-        for (var i = 0; i < startCoords.Count; i++)
         //Debug.Log("startCoords: "+startCoords.Count);
+        for (var i = 0; i < startCoords.Count; i++)
         {
             //Debug.Log($"startCoords: { startCoords.Count}");
             Vector3 startValue = startCoords[i].StartValue;

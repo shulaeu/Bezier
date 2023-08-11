@@ -31,8 +31,8 @@ public class UIPoint : MonoBehaviour
         else
         {
             xSlider.value = 0;
-            preX = 0;
-            Position = Vector3.zero;
+            //preX = 0;
+            //Position = Vector3.zero;
         }
 
         if (Math.Abs(Position.y - preY) > 0.00001f)
@@ -42,8 +42,8 @@ public class UIPoint : MonoBehaviour
         else
         {
             ySlider.value = 0;
-            preY = 0;
-            Position = Vector3.zero;
+            //preY = 0;
+            //Position = Vector3.zero;
         }
 
         if (Math.Abs(Position.z - preZ) > 0.00001f)
@@ -53,8 +53,8 @@ public class UIPoint : MonoBehaviour
         else
         {
             zSlider.value = 0;
-            preZ = 0;
-            Position = Vector3.zero;
+            //preZ = 0;
+            //Position = Vector3.zero;
         }
     }
     void Start()

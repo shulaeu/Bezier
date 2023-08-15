@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class UIPoint : MonoBehaviour
 {
+    [SerializeField] private TMP_Dropdown dropdownCoords;
     [SerializeField] private TMP_Dropdown dropdown;
 
     [SerializeField] private Slider xSlider;
@@ -60,9 +61,15 @@ public class UIPoint : MonoBehaviour
     void Start()
     {
         //Debug.Log("Start");
-        dropdown.onValueChanged.AddListener(newItem =>
+        dropdownCoords.onValueChanged.AddListener(newItem =>
         {
             Type = (CoordType)newItem;
+        });
+
+        dropdown.onValueChanged.AddListener(index =>
+        {
+            //TODO
+            //Index = index;
         });
 
         xSlider.onValueChanged.AddListener(xValue =>

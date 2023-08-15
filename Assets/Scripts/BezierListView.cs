@@ -8,21 +8,41 @@ using UnityEngine.UI;
 public class BezierListView : MonoBehaviour
 {
     [SerializeField] private UIPoint uiPointView;
+    [SerializeField] private bool isSaveTopLayerPrefs;
 
-    private void Update()
+    public List<string> GetChildList()
     {
-        for (int i = 0; i<transform.childCount; i++)
+        List<string> result = new List<string>();
+        for (int i = 0; i < transform.childCount; i++)
         {
             Transform child = transform.GetChild(i);
-            if (child.TryGetComponent(out BezierCurveScript curveScript))
+            if (child.TryGetComponent(out BezierCurveScript curvescript))
             {
-                curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
+                result.Add(child.name);
             }
         }
+
+        return result;
+    }
+    
+    private void Update()
+    {
+        //TODO
+            //Transform child = transform.GetChild(uiPointView.Index);
+            //if (child.TryGetComponent(out BezierCurveScript curveScript))
+            //{
+            //    curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
+            //}
+       
     }
 
     private void OnDestroy()
     {
+        if (!isSaveTopLayerPrefs)
+        {
+            return;
+        }
+
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform child = transform.GetChild(i);
@@ -33,6 +53,7 @@ public class BezierListView : MonoBehaviour
                 PlayerPrefs.SetString($"{i}jsonData", jsonData);
             }
         }
+
     }
     private void Start()
     {

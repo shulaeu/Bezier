@@ -17,11 +17,11 @@ public class UIPoint : MonoBehaviour
     [SerializeField] private Slider zSlider;
 
     public Vector3 Position { get; private set; }
-
+    public int Index { get; private set; }
     public CoordType Type { get; private set; }
 
     private float preX, preY, preZ;
-
+    
 
     private void Update()
     {
@@ -69,7 +69,7 @@ public class UIPoint : MonoBehaviour
         dropdown.onValueChanged.AddListener(index =>
         {
             //TODO
-            //Index = index;
+            Index = index;
         });
 
         xSlider.onValueChanged.AddListener(xValue =>

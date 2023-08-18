@@ -28,11 +28,11 @@ public class BezierListView : MonoBehaviour
     private void Update()
     {
         //TODO
-            //Transform child = transform.GetChild(uiPointView.Index);
-            //if (child.TryGetComponent(out BezierCurveScript curveScript))
-            //{
-            //    curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
-            //}
+            Transform child = transform.GetChild(uiPointView.Index);
+            if (child.TryGetComponent(out BezierCurveScript curveScript))
+            {
+                curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
+            }
        
     }
 

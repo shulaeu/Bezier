@@ -10,12 +10,13 @@ public class DropDownBezier : MonoBehaviour
 
     void Start()
     {
+        dropdown.options.Clear();
         List<string> names = bezierListView.GetChildList();
         foreach (string childName in names)
         {
-            dropdown.options.Add(new TMP_Dropdown.OptionData(childName));
-            //TODO
-            //dropdown.options.Add(option);
+            //dropdown.options.Add(new TMP_Dropdown.OptionData(childName));
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(childName);
+            dropdown.options.Add(option);
         }
     }
 }

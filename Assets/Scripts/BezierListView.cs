@@ -24,10 +24,19 @@ public class BezierListView : MonoBehaviour
 
         return result;
     }
-    
+
+    public int GetChildCount(int index)
+    {
+        var count = 0;
+        if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
+        {
+            count = curvescript.transform.childCount;
+        }
+        return count;
+    }
+
     private void Update()
     {
-        //TODO
             Transform child = transform.GetChild(uiPointView.Index);
             if (child.TryGetComponent(out BezierCurveScript curveScript))
             {

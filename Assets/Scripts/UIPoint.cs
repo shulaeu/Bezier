@@ -11,6 +11,7 @@ public class UIPoint : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdownCoords;
     [SerializeField] private TMP_Dropdown dropdown;
+    //[SerializeField] private TMP_Dropdown itemsDropdown;
 
     [SerializeField] private Slider xSlider;
     [SerializeField] private Slider ySlider;

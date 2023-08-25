@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class BezierPath
 {
     public List<Vector3> pathPoints;
@@ -53,6 +51,5 @@ public class BezierPath
             Vector3 point = BezierPathCalculation(p0, p1, p2, p3, t);
             pathPoints.Add(point);
         }
-
     }
 }

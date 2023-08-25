@@ -17,7 +17,6 @@ public class BezierCoords : IBezierCoords
     public Vector3 TopValue => topValue;
     public Vector3 DownValue => downValue;
 
-
     public BezierCoords(IBezierCoords coords)
     {
         this.startValue = StartValue;

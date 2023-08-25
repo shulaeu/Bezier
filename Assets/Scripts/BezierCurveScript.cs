@@ -17,7 +17,7 @@ public class BezierCurveScript : MonoBehaviour
 
     private BezierPath path;
 
-    private List<IBezierCoords> startCoords = new List<IBezierCoords>();
+    public List<IBezierCoords> startCoords { get; private set; } = new List<IBezierCoords>();
 
     public List<RunTimeCoords> RunTimeCoordsList()
     {
@@ -33,6 +33,23 @@ public class BezierCurveScript : MonoBehaviour
         for (int i = 1; i < path.pointCount; i++)
         {
             CreatePathGameObject(path.pathPoints[i]);
+        }
+    }
+
+    private void Update()
+    {
+        //Debug.Log("Update");
+        RecreateCurve();
+        UpdatePoints();
+    }
+
+    private void OnDestroy()
+    {
+        if (_runTimeCoordsList.Count > 0)
+        {
+            SaveJsonData data = new SaveJsonData(_runTimeCoordsList);
+            string jsonData = JsonUtility.ToJson(data);
+            PlayerPrefs.SetString("jsonData", jsonData);
         }
     }
 
@@ -64,17 +81,6 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
-
-    private void OnDestroy()
-    {
-        if (_runTimeCoordsList.Count > 0)
-        {
-            SaveJsonData data = new SaveJsonData(_runTimeCoordsList);
-            string jsonData = JsonUtility.ToJson(data);
-            PlayerPrefs.SetString("jsonData", jsonData);
-        }
-    }
-
     private void UpdatePath()
     {
         path.DeletePath();
@@ -84,19 +90,11 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //Debug.Log("Update");
-        RecreateCurve();
-        UpdatePoints();
-    }
-
     private void RecreateCurve()
     {
         //Debug.Log("Recreate");
         path.DeletePath();
         _runTimeCoordsList.Clear();
-
 
         for (int i = 0; i < startCoords.Count; i++)
         {
@@ -108,16 +106,15 @@ public class BezierCurveScript : MonoBehaviour
             _runTimeCoordsList.Add(obj);
             //Debug.Log("ObjData" +obj);
             path.CreateCurve(obj, startCoords.Count);
-
         }
     }
 
     private void UpdatePoints()
     {
         //Debug.Log("UpdatePoints");      
-        for(var i = 1; i < path.pointCount; i++)
+        for (var i = 1; i < path.pointCount; i++)
         //for (var i = 1; i < points.Count; i++)
-            {
+        {
             int objI = i - 1;
             objects[objI].transform.position = path.pathPoints[objI];
             //objects[objI].transform.position = points[objI];
@@ -142,7 +139,6 @@ public class BezierCurveScript : MonoBehaviour
             Vector3 downValue = startCoords[i].DownValue;
             GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
             points.Add(new Points(start, end, top, down));
-
         }
     }
 

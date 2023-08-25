@@ -10,41 +10,33 @@ public class BezierListView : MonoBehaviour
     [SerializeField] private UIPoint uiPointView;
     [SerializeField] private bool isSaveTopLayerPrefs;
 
-    public List<string> GetChildList()
+    private void Awake()
     {
-        List<string> result = new List<string>();
         for (int i = 0; i < transform.childCount; i++)
         {
+            //Debug.Log("count" +curveScripts.Count);
             Transform child = transform.GetChild(i);
-            if (child.TryGetComponent(out BezierCurveScript curvescript))
+            if (child.TryGetComponent(out BezierCurveScript curveScript))
             {
-                result.Add(child.name);
+                string jsonData = PlayerPrefs.GetString($"{i}jsonData");
+                curveScript.SetupStartData(jsonData);
+                curveScript.Init();
             }
+            //Debug.Log("json1" $"{i} jsonData");
         }
-
-        return result;
-    }
-
-    public int GetChildCount(int index)
-    {
-        var count = 0;
-        if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
-        {
-            count = curvescript.transform.childCount;
-        }
-        return count;
+        uiPointView.Init();
+        //gameObject.SetActive(falce);
     }
 
     private void Update()
     {
-            Transform child = transform.GetChild(uiPointView.Index);
-            if (child.TryGetComponent(out BezierCurveScript curveScript))
-            {
-                curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
-            }
-       
-    }
+        Transform child = transform.GetChild(uiPointView.Index);
+        if (child.TryGetComponent(out BezierCurveScript curveScript))
+        {
+            curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
+        }
 
+    }
     private void OnDestroy()
     {
         if (!isSaveTopLayerPrefs)
@@ -64,19 +56,31 @@ public class BezierListView : MonoBehaviour
         }
 
     }
-    private void Start()
+
+    public List<string> GetChildList()
     {
+        List<string> result = new List<string>();
         for (int i = 0; i < transform.childCount; i++)
         {
-            //Debug.Log("count" +curveScripts.Count);
             Transform child = transform.GetChild(i);
-            if (child.TryGetComponent(out BezierCurveScript curveScript))
+            if (child.TryGetComponent(out BezierCurveScript curvescript))
             {
-                string jsonData = PlayerPrefs.GetString($"{i}jsonData");
-                curveScript.SetupStartData(jsonData);
-                curveScript.Init();
+                result.Add(child.name);
             }
-            //Debug.Log("json1" $"{i} jsonData");
         }
+        return result;
+    }
+
+    public int GetChildCount(int index)
+    {
+        var count = 0;
+        Debug.Log("GetChildCount1");
+        if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
+        {
+            Debug.Log("GetChildCount2");
+            //count = curvescript.transform.childCount;
+            count = curvescript.startCoords.Count;
+        }
+        return count;
     }
 }

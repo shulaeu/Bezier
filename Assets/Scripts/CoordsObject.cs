@@ -12,7 +12,7 @@ public class CoordsObject : ScriptableObject
     [SerializeField] private GameObject prefabEnd;
     [SerializeField] private GameObject prefabTop;
     [SerializeField] private GameObject prefabDown;
-    
+
     public List<BezierCoords> BezierCoords => bezierCoords;
     public GameObject Prefab => prefab;
     public GameObject StartPrefab => prefabStart;

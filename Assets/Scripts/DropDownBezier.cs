@@ -9,7 +9,7 @@ public class DropDownBezier : MonoBehaviour
     [SerializeField] private TMP_Dropdown itemsDropdown;
     [SerializeField] private BezierListView bezierListView;
 
-    void Start()
+    private void Start()
     {
         dropdown.options.Clear();
 
@@ -20,19 +20,18 @@ public class DropDownBezier : MonoBehaviour
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(childName);
             dropdown.options.Add(option);
         }
-
         dropdown.onValueChanged.AddListener(OnScriptsChanged);
         OnScriptsChanged(0);
     }
 
     private void OnScriptsChanged(int index)
     {
-        dropdown.options.Clear();
+        itemsDropdown.options.Clear();
         int itemCount = bezierListView.GetChildCount(index);
         for (int i = 0; i < itemCount; i++)
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(i.ToString());
-            dropdown.options.Add(option);
+            itemsDropdown.options.Add(option);
         }
     }
 }

@@ -11,7 +11,7 @@ public class UIPoint : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdownCoords;
     [SerializeField] private TMP_Dropdown dropdown;
-    //[SerializeField] private TMP_Dropdown itemsDropdown;
+    [SerializeField] private TMP_Dropdown itemsDropdown;
 
     [SerializeField] private Slider xSlider;
     [SerializeField] private Slider ySlider;
@@ -22,8 +22,35 @@ public class UIPoint : MonoBehaviour
     public CoordType Type { get; private set; }
 
     private float preX, preY, preZ;
-    
 
+    public void Init()
+    {
+        //Debug.Log("Start");
+        dropdownCoords.onValueChanged.AddListener(newItem =>
+        {
+            Type = (CoordType)newItem;
+        });
+
+        dropdown.onValueChanged.AddListener(index =>
+        {
+            Index = index;
+        });
+
+        xSlider.onValueChanged.AddListener(xValue =>
+        {
+            preX = xValue;
+        });
+
+        ySlider.onValueChanged.AddListener(yValue =>
+        {
+            preY = yValue;
+        });
+
+        zSlider.onValueChanged.AddListener(zValue =>
+        {
+            preZ = zValue;
+        });
+    }
     private void Update()
     {
         if (Math.Abs(Position.x - preX) > 0.00001f)
@@ -58,34 +85,5 @@ public class UIPoint : MonoBehaviour
             //preZ = 0;
             //Position = Vector3.zero;
         }
-    }
-    void Start()
-    {
-        //Debug.Log("Start");
-        dropdownCoords.onValueChanged.AddListener(newItem =>
-        {
-            Type = (CoordType)newItem;
-        });
-
-        dropdown.onValueChanged.AddListener(index =>
-        {
-            //TODO
-            Index = index;
-        });
-
-        xSlider.onValueChanged.AddListener(xValue =>
-        {
-            preX = xValue;
-        });
-
-        ySlider.onValueChanged.AddListener(yValue =>
-        {
-            preY = yValue;
-        });
-
-        zSlider.onValueChanged.AddListener(zValue =>
-        {
-            preZ = zValue;
-        });
     }
 }

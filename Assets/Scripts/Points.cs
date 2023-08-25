@@ -15,8 +15,6 @@ public class Points
         this.tempDown = tempDown;
     }
 
-    
-
     public Vector3 GetPosition(CoordType type)
     {
         switch (type)
@@ -39,7 +37,7 @@ public class Points
         switch (type)
         {
             case CoordType.Start:
-               tempStart.transform.localPosition += deltaPosition;
+                tempStart.transform.localPosition += deltaPosition;
                 break;
             case CoordType.End:
                 tempEnd.transform.localPosition += deltaPosition;

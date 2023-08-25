@@ -17,10 +17,6 @@ MonoBehaviour:
     endValue: {x: 3, y: 0, z: 3}
     topValue: {x: 4, y: 4, z: 2}
     downValue: {x: 1, y: 1, z: 1}
-  - startValue: {x: 5, y: 8, z: 5}
-    endValue: {x: 3, y: 2, z: 2}
-    topValue: {x: 4, y: 1, z: 1}
-    downValue: {x: 1, y: 6, z: 1}
   prefab: {fileID: 5773584475356779682, guid: be5f709db6648d54cbe2c4ecdea5730a, type: 3}
   prefabStart: {fileID: 5773584475356779682, guid: 64a00ebdc26f1074dbc3ddd370d8b2c8, type: 3}
   prefabEnd: {fileID: 5773584475356779682, guid: c9d1d90d0999b5649a0c72687cfab672, type: 3}

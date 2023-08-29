@@ -10,14 +10,15 @@ public class BezierCurveScript : MonoBehaviour
 
     [SerializeField] private int pointsAmount = 20;
     [SerializeField] private CoordsObject coordsData;
-
-    private readonly List<GameObject> objects = new List<GameObject>();
-    private List<Points> points = new List<Points>();
-    private readonly List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
-
     private BezierPath path;
-
+    
+    private readonly List<GameObject> objects = new List<GameObject>();
+    
+    private List<Points> points = new List<Points>();
+    
     public List<IBezierCoords> startCoords { get; private set; } = new List<IBezierCoords>();
+    
+    private readonly List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
 
     public List<RunTimeCoords> RunTimeCoordsList()
     {
@@ -30,6 +31,7 @@ public class BezierCurveScript : MonoBehaviour
         path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
+        
         for (int i = 1; i < path.pointCount; i++)
         {
             CreatePathGameObject(path.pathPoints[i]);
@@ -53,31 +55,24 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
-    public void SetupStartData(string jsonData)
+    private void InitCoord()
     {
-        if (jsonData == string.Empty)
+        //Debug.Log("startCoords: "+startCoords.Count);
+        for (var i = 0; i < startCoords.Count; i++)
         {
-            InitDefaultCoords();
-            return;
-        }
+            //Debug.Log($"startCoords: { startCoords.Count}");
+            Vector3 startValue = startCoords[i].StartValue;
+            GameObject start = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
 
-        try
-        {
-            SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(jsonData);
-            startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
-            InitDefaultCoords();
-        }
-        catch (Exception _)
-        {
-            InitDefaultCoords();
-        }
-    }
+            Vector3 endValue = startCoords[i].EndValue;
+            GameObject end = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
 
-    private void InitDefaultCoords()
-    {
-        if (startCoords.Count == 0)
-        {
-            startCoords = new List<IBezierCoords>(coordsData.BezierCoords);
+            Vector3 topValue = startCoords[i].TopValue;
+            GameObject top = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
+
+            Vector3 downValue = startCoords[i].DownValue;
+            GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
+            points.Add(new Points(start, end, top, down));
         }
     }
 
@@ -88,6 +83,12 @@ public class BezierCurveScript : MonoBehaviour
         {
             path.CreateCurve(startCoords[i], startCoords.Count);
         }
+    }
+
+    private void CreatePathGameObject(Vector3 end)
+    {
+        GameObject obj = Instantiate(coordsData.Prefab, end, Quaternion.identity, transform);
+        objects.Add(obj);
     }
 
     private void RecreateCurve()
@@ -121,38 +122,41 @@ public class BezierCurveScript : MonoBehaviour
         }
     }
 
-    private void InitCoord()
+
+    public void SetupStartData(string jsonData)
     {
-        //Debug.Log("startCoords: "+startCoords.Count);
-        for (var i = 0; i < startCoords.Count; i++)
+        if (jsonData == string.Empty)
         {
-            //Debug.Log($"startCoords: { startCoords.Count}");
-            Vector3 startValue = startCoords[i].StartValue;
-            GameObject start = Instantiate(coordsData.StartPrefab, startValue, Quaternion.identity, transform);
+            InitDefaultCoords();
+            return;
+        }
 
-            Vector3 endValue = startCoords[i].EndValue;
-            GameObject end = Instantiate(coordsData.EndPrefab, endValue, Quaternion.identity, transform);
-
-            Vector3 topValue = startCoords[i].TopValue;
-            GameObject top = Instantiate(coordsData.TopPrefab, topValue, Quaternion.identity, transform);
-
-            Vector3 downValue = startCoords[i].DownValue;
-            GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
-            points.Add(new Points(start, end, top, down));
+        try
+        {
+            SaveJsonData saveData = JsonUtility.FromJson<SaveJsonData>(jsonData);
+            startCoords = new List<IBezierCoords>(saveData._runTimeCoordsList);
+            InitDefaultCoords();
+        }
+        catch (Exception _)
+        {
+            InitDefaultCoords();
         }
     }
 
-    private void CreatePathGameObject(Vector3 end)
+    private void InitDefaultCoords()
     {
-        GameObject obj = Instantiate(coordsData.Prefab, end, Quaternion.identity, transform);
-        objects.Add(obj);
-    }
-
-    public void SetStartPointPosition(Vector3 position, CoordType type)
-    {
-        for (int i = 0; i < points.Count; i++)
+        if (startCoords.Count == 0)
         {
-            points[i].SetPosition(position, type);
+            startCoords = new List<IBezierCoords>(coordsData.BezierCoords);
         }
+    }
+    
+    public void SetStartPointPosition(Vector3 position, CoordType type, int itemIndex)
+    {
+        if (itemIndex >= points.Count)
+        {
+            return;
+        }
+        points[itemIndex].SetPosition(position, type);
     }
 }

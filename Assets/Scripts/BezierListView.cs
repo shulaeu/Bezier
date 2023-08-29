@@ -14,7 +14,7 @@ public class BezierListView : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            //Debug.Log("count" +curveScripts.Count);
+            //Debug.Log("childCount" + transform.childCount);
             Transform child = transform.GetChild(i);
             if (child.TryGetComponent(out BezierCurveScript curveScript))
             {
@@ -25,7 +25,7 @@ public class BezierListView : MonoBehaviour
             //Debug.Log("json1" $"{i} jsonData");
         }
         uiPointView.Init();
-        //gameObject.SetActive(falce);
+        //gameObject.SetActive(false);
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class BezierListView : MonoBehaviour
         Transform child = transform.GetChild(uiPointView.Index);
         if (child.TryGetComponent(out BezierCurveScript curveScript))
         {
-            curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type);
+            curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type, uiPointView.ItemIndex);
         }
 
     }
@@ -54,7 +54,6 @@ public class BezierListView : MonoBehaviour
                 PlayerPrefs.SetString($"{i}jsonData", jsonData);
             }
         }
-
     }
 
     public List<string> GetChildList()
@@ -74,11 +73,11 @@ public class BezierListView : MonoBehaviour
     public int GetChildCount(int index)
     {
         var count = 0;
-        Debug.Log("GetChildCount1");
+        //Debug.Log("GetChildCount1");
+        //Debug.Log("indexGetChild" + index);
         if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
         {
-            Debug.Log("GetChildCount2");
-            //count = curvescript.transform.childCount;
+            //Debug.Log("GetChildCount2");
             count = curvescript.startCoords.Count;
         }
         return count;

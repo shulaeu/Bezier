@@ -20,19 +20,28 @@ public class UIPoint : MonoBehaviour
     public Vector3 Position { get; private set; }
     public int Index { get; private set; }
     public CoordType Type { get; private set; }
+    public int ItemIndex { get; private set; }
 
     private float preX, preY, preZ;
 
     public void Init()
     {
-        //Debug.Log("Start");
+        itemsDropdown.onValueChanged.AddListener(newItem =>
+        {
+            ItemIndex = newItem;
+        });
+
         dropdownCoords.onValueChanged.AddListener(newItem =>
         {
+            //ItemIndex = 0;
+            //itemsDropdown.value = 0;
             Type = (CoordType)newItem;
         });
 
         dropdown.onValueChanged.AddListener(index =>
         {
+            ItemIndex = 0;
+            itemsDropdown.value = 0;
             Index = index;
         });
 
@@ -56,6 +65,7 @@ public class UIPoint : MonoBehaviour
         if (Math.Abs(Position.x - preX) > 0.00001f)
         {
             Position = new Vector3(preX, Position.y, Position.z);
+            //Debug.Log("preX" + preX);
         }
         else
         {

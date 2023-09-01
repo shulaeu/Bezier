@@ -33,8 +33,6 @@ public class UIPoint : MonoBehaviour
 
         dropdownCoords.onValueChanged.AddListener(newItem =>
         {
-            //ItemIndex = 0;
-            //itemsDropdown.value = 0;
             Type = (CoordType)newItem;
         });
 

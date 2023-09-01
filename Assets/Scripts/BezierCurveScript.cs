@@ -11,13 +11,13 @@ public class BezierCurveScript : MonoBehaviour
     [SerializeField] private int pointsAmount = 20;
     [SerializeField] private CoordsObject coordsData;
     private BezierPath path;
-    
+
     private readonly List<GameObject> objects = new List<GameObject>();
-    
-    private List<Points> points = new List<Points>();
-    
+
+    private List<Points> gameObjectsStartPoints = new List<Points>();
+
     public List<IBezierCoords> startCoords { get; private set; } = new List<IBezierCoords>();
-    
+
     private readonly List<RunTimeCoords> _runTimeCoordsList = new List<RunTimeCoords>();
 
     public List<RunTimeCoords> RunTimeCoordsList()
@@ -31,7 +31,7 @@ public class BezierCurveScript : MonoBehaviour
         path = new BezierPath(pointsAmount);
         InitCoord();
         UpdatePath();
-        
+
         for (int i = 1; i < path.pointCount; i++)
         {
             CreatePathGameObject(path.pathPoints[i]);
@@ -72,7 +72,7 @@ public class BezierCurveScript : MonoBehaviour
 
             Vector3 downValue = startCoords[i].DownValue;
             GameObject down = Instantiate(coordsData.DownPrefab, downValue, Quaternion.identity, transform);
-            points.Add(new Points(start, end, top, down));
+            gameObjectsStartPoints.Add(new Points(start, end, top, down));
         }
     }
 
@@ -99,10 +99,10 @@ public class BezierCurveScript : MonoBehaviour
 
         for (int i = 0; i < startCoords.Count; i++)
         {
-            Vector3 start = points[i].GetPosition(CoordType.Start);
-            Vector3 end = points[i].GetPosition(CoordType.End);
-            Vector3 top = points[i].GetPosition(CoordType.Top);
-            Vector3 down = points[i].GetPosition(CoordType.Down);
+            Vector3 start = gameObjectsStartPoints[i].GetPosition(CoordType.Start);
+            Vector3 end = gameObjectsStartPoints[i].GetPosition(CoordType.End);
+            Vector3 top = gameObjectsStartPoints[i].GetPosition(CoordType.Top);
+            Vector3 down = gameObjectsStartPoints[i].GetPosition(CoordType.Down);
             var obj = new RunTimeCoords(start, end, top, down);
             _runTimeCoordsList.Add(obj);
             //Debug.Log("ObjData" +obj);
@@ -150,13 +150,13 @@ public class BezierCurveScript : MonoBehaviour
             startCoords = new List<IBezierCoords>(coordsData.BezierCoords);
         }
     }
-    
+
     public void SetStartPointPosition(Vector3 position, CoordType type, int itemIndex)
     {
-        if (itemIndex >= points.Count)
+        if (itemIndex >= gameObjectsStartPoints.Count)
         {
             return;
         }
-        points[itemIndex].SetPosition(position, type);
+        gameObjectsStartPoints[itemIndex].SetPosition(position, type);
     }
 }

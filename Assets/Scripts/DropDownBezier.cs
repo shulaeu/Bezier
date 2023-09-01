@@ -28,8 +28,7 @@ public class DropDownBezier : MonoBehaviour
     {
         itemsDropdown.options.Clear();
         int itemCount = bezierListView.GetChildCount(index);
-        //Debug.Log("index" + index);
-        //Debug.Log("itemCount" + itemCount);
+        
         for (int i = 0; i < itemCount; i++)
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(i.ToString());

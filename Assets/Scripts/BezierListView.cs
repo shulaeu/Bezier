@@ -4,17 +4,26 @@ using UnityEngine;
 using static UnityEngine.Random;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class BezierListView : MonoBehaviour
 {
-    [SerializeField] private UIPoint uiPointView;
+    //[SerializeField] private UIPoint uiPointView;
     [SerializeField] private bool isSaveTopLayerPrefs;
 
-    private void Awake()
+    private int shapeIndex;
+    
+    private int coordsIndex;
+
+    private Vector3 Position;
+    private CoordType Type;
+    private int ItemIndex;
+
+    private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            //Debug.Log("childCount" + transform.childCount);
+            
             Transform child = transform.GetChild(i);
             if (child.TryGetComponent(out BezierCurveScript curveScript))
             {
@@ -23,19 +32,35 @@ public class BezierListView : MonoBehaviour
                 curveScript.Init();
             }
             //Debug.Log("json1" $"{i} jsonData");
-        }
-        uiPointView.Init();
-        //gameObject.SetActive(false);
+        }        
+        UIEventHelper.InvokeInitUI();
+        UIEventHelper.SubscribeOnDropdownShapeChange(DropdownShapeChange);
+        UIEventHelper.SubscribeOnDropdownItemChange(DropdownItemChange);
+        UIEventHelper.SubscribeOnDropdownCoordsChange(DropdownCoordsChange);
+    }
+
+    private void DropdownShapeChange(int index)
+    {
+        shapeIndex = index;
+    }
+
+    private void DropdownItemChange(int index)
+    {
+       ItemIndex = index;
+    }
+
+    private void DropdownCoordsChange(int index)
+    {
+        coordsIndex = index;
     }
 
     private void Update()
     {
-        Transform child = transform.GetChild(uiPointView.Index);
+        Transform child = transform.GetChild(shapeIndex);
         if (child.TryGetComponent(out BezierCurveScript curveScript))
         {
-            curveScript.SetStartPointPosition(uiPointView.Position, uiPointView.Type, uiPointView.ItemIndex);
+            curveScript.SetStartPointPosition(Position, Type, ItemIndex);
         }
-
     }
     private void OnDestroy()
     {

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class UIPoint : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdownCoords;
-    [SerializeField] private TMP_Dropdown dropdown;
+    [SerializeField] private TMP_Dropdown dropdownShapes;
     [SerializeField] private TMP_Dropdown itemsDropdown;
 
     [SerializeField] private Slider xSlider;
@@ -18,29 +18,39 @@ public class UIPoint : MonoBehaviour
     [SerializeField] private Slider zSlider;
 
     public Vector3 Position { get; private set; }
-    public int Index { get; private set; }
+    //public int Index { get; private set; }
     public CoordType Type { get; private set; }
     public int ItemIndex { get; private set; }
 
     private float preX, preY, preZ;
+
+    //public Action<int> onDropdownShapeChange;
+
+    private void Awake()
+    {
+        UIEventHelper.SubscribeOnInitUI(Init);
+    }
 
     public void Init()
     {
         itemsDropdown.onValueChanged.AddListener(newItem =>
         {
             ItemIndex = newItem;
+            //UIEventHelper.InvokeDropdownItemChange(index);
         });
 
         dropdownCoords.onValueChanged.AddListener(newItem =>
         {
             Type = (CoordType)newItem;
+            //UIEventHelper.InvokeDropdownCoordsChange(index);
         });
 
-        dropdown.onValueChanged.AddListener(index =>
+        dropdownShapes.onValueChanged.AddListener(index =>
         {
             ItemIndex = 0;
             itemsDropdown.value = 0;
-            Index = index;
+            //Index = index;
+            UIEventHelper.InvokeDropdownShapeChange(index);
         });
 
         xSlider.onValueChanged.AddListener(xValue =>
@@ -68,8 +78,6 @@ public class UIPoint : MonoBehaviour
         else
         {
             xSlider.value = 0;
-            //preX = 0;
-            //Position = Vector3.zero;
         }
 
         if (Math.Abs(Position.y - preY) > 0.00001f)
@@ -79,8 +87,6 @@ public class UIPoint : MonoBehaviour
         else
         {
             ySlider.value = 0;
-            //preY = 0;
-            //Position = Vector3.zero;
         }
 
         if (Math.Abs(Position.z - preZ) > 0.00001f)
@@ -90,8 +96,6 @@ public class UIPoint : MonoBehaviour
         else
         {
             zSlider.value = 0;
-            //preZ = 0;
-            //Position = Vector3.zero;
         }
     }
 }

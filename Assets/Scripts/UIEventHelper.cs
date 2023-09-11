@@ -9,15 +9,25 @@ public static class UIEventHelper
    
     private static event Action<int> onDropdownItemChange;
 
-    private static event Action<int> onDropdownCoordsChange;
+    private static event Action<CoordType> onDropdownCoordsChange;
+
+    private static event Action<Vector3> onChangePosition;
 
     private static event Action onInitUI;
+
+    public static void SubscribeOnChangePosition(Action<Vector3> action)
+    {
+        onChangePosition += action;
+    }
+    public static void InvokeChangePosition(Vector3 position)
+    {
+        onChangePosition?.Invoke(position);
+    }
 
     public static void SubscribeOnInitUI (Action action)
     {
         onInitUI += action;
     }
-
     public static void InvokeInitUI()
     {
         onInitUI?.Invoke();
@@ -27,7 +37,6 @@ public static class UIEventHelper
     {
         onDropdownShapeChange += action;
     }
-
     public static void InvokeDropdownShapeChange(int index)
     {
         onDropdownShapeChange?.Invoke(index);
@@ -37,19 +46,17 @@ public static class UIEventHelper
     {
         onDropdownItemChange += action;
     }
-
     public static void InvokeDropdownItemChange(int index)
     {
         onDropdownItemChange?.Invoke(index);
     }
 
-    public static void SubscribeOnDropdownCoordsChange(Action<int> action)
+    public static void SubscribeOnDropdownCoordsChange(Action<CoordType> action)
     {
         onDropdownCoordsChange += action;
     }
-
-    public static void InvokeDropdownCoordsChange(int index)
+    public static void InvokeDropdownCoordsChange(CoordType coordType)
     {
-        onDropdownCoordsChange?.Invoke(index);
+        onDropdownCoordsChange?.Invoke(coordType);
     }
 }

@@ -6,10 +6,16 @@ using TMPro;
 public class DropDownBezier : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdown;
-    [SerializeField] private TMP_Dropdown itemsDropdown;
+    [SerializeField] private TMP_Dropdown dropdownItems;
     [SerializeField] private BezierListView bezierListView;
 
-    private void Start()
+
+    void Awake()
+    {
+        UIEventHelper.SubscribeOnInitUI(Init);
+    }
+
+    void Init()
     {
         dropdown.options.Clear();
 
@@ -26,14 +32,14 @@ public class DropDownBezier : MonoBehaviour
 
     private void OnScriptsChanged(int index)
     {
-        itemsDropdown.options.Clear();
+        dropdownItems.options.Clear();
         int itemCount = bezierListView.GetChildCount(index);
-        
+
         for (int i = 0; i < itemCount; i++)
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(i.ToString());
             //Debug.Log("i" + i);
-            itemsDropdown.options.Add(option);
+            dropdownItems.options.Add(option);
         }
     }
 }

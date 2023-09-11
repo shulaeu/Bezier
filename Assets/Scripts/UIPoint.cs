@@ -11,16 +11,16 @@ public class UIPoint : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdownCoords;
     [SerializeField] private TMP_Dropdown dropdownShapes;
-    [SerializeField] private TMP_Dropdown itemsDropdown;
+    [SerializeField] private TMP_Dropdown DropdownItems;
 
     [SerializeField] private Slider xSlider;
     [SerializeField] private Slider ySlider;
     [SerializeField] private Slider zSlider;
 
-    public Vector3 Position { get; private set; }
+    private Vector3 position;
     //public int Index { get; private set; }
-    public CoordType Type { get; private set; }
-    public int ItemIndex { get; private set; }
+    //public CoordType Type { get; private set; }
+    //public int ItemIndex { get; private set; }
 
     private float preX, preY, preZ;
 
@@ -33,23 +33,19 @@ public class UIPoint : MonoBehaviour
 
     public void Init()
     {
-        itemsDropdown.onValueChanged.AddListener(newItem =>
+        DropdownItems.onValueChanged.AddListener(newItem =>
         {
-            ItemIndex = newItem;
-            //UIEventHelper.InvokeDropdownItemChange(index);
+            UIEventHelper.InvokeDropdownItemChange(newItem);
         });
 
         dropdownCoords.onValueChanged.AddListener(newItem =>
         {
-            Type = (CoordType)newItem;
-            //UIEventHelper.InvokeDropdownCoordsChange(index);
+            UIEventHelper.InvokeDropdownCoordsChange((CoordType) newItem);
         });
 
         dropdownShapes.onValueChanged.AddListener(index =>
         {
-            ItemIndex = 0;
-            itemsDropdown.value = 0;
-            //Index = index;
+            DropdownItems.value = 0;
             UIEventHelper.InvokeDropdownShapeChange(index);
         });
 
@@ -70,9 +66,10 @@ public class UIPoint : MonoBehaviour
     }
     private void Update()
     {
-        if (Math.Abs(Position.x - preX) > 0.00001f)
+        if (Math.Abs(position.x - preX) > 0.00001f)
         {
-            Position = new Vector3(preX, Position.y, Position.z);
+            position = new Vector3(preX, position.y, position.z);
+            UIEventHelper.InvokeChangePosition(position);
             //Debug.Log("preX" + preX);
         }
         else
@@ -80,18 +77,20 @@ public class UIPoint : MonoBehaviour
             xSlider.value = 0;
         }
 
-        if (Math.Abs(Position.y - preY) > 0.00001f)
+        if (Math.Abs(position.y - preY) > 0.00001f)
         {
-            Position = new Vector3(Position.x, preY, Position.z);
+            position = new Vector3(position.x, preY, position.z);
+            UIEventHelper.InvokeChangePosition(position);
         }
         else
         {
             ySlider.value = 0;
         }
 
-        if (Math.Abs(Position.z - preZ) > 0.00001f)
+        if (Math.Abs(position.z - preZ) > 0.00001f)
         {
-            Position = new Vector3(Position.x, Position.y, preZ);
+            position = new Vector3(position.x, position.y, preZ);
+            UIEventHelper.InvokeChangePosition(position);
         }
         else
         {

@@ -3704,7 +3704,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1312198113}
   - component: {fileID: 1312198115}
-  - component: {fileID: 1312198114}
   m_Layer: 0
   m_Name: BezierList
   m_TagString: Untagged
@@ -3729,21 +3728,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1312198114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312198112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3816b1b9f15894fbd4b762c2b58041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropdown: {fileID: 1770117315}
-  itemsDropdown: {fileID: 174402415}
-  bezierListView: {fileID: 1312198115}
 --- !u!114 &1312198115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3756,6 +3740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30df55856b2cb534fa154067505825c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiPointView: {fileID: 1451353937}
   isSaveTopLayerPrefs: 1
 --- !u!1 &1357268040
 GameObject:
@@ -4069,7 +4054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropdownCoords: {fileID: 2119488432}
   dropdownShapes: {fileID: 1770117315}
-  itemsDropdown: {fileID: 174402415}
+  DropdownItems: {fileID: 174402415}
   xSlider: {fileID: 1370655377}
   ySlider: {fileID: 1653582830}
   zSlider: {fileID: 1268170711}
@@ -4082,10 +4067,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1451353935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30df55856b2cb534fa154067505825c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e3816b1b9f15894fbd4b762c2b58041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSaveTopLayerPrefs: 0
+  dropdown: {fileID: 1770117315}
+  dropdownItems: {fileID: 174402415}
+  bezierListView: {fileID: 1312198115}
 --- !u!1 &1475692709
 GameObject:
   m_ObjectHideFlags: 0
@@ -5247,7 +5234,6 @@ GameObject:
   - component: {fileID: 1837082945}
   - component: {fileID: 1837082944}
   - component: {fileID: 1837082943}
-  - component: {fileID: 1837082947}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5337,18 +5323,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!225 &1837082947
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837082942}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &1885675559
 GameObject:
   m_ObjectHideFlags: 0
@@ -5906,7 +5880,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2119488430}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1

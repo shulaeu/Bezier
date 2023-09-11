@@ -8,16 +8,14 @@ using System;
 
 public class BezierListView : MonoBehaviour
 {
-    //[SerializeField] private UIPoint uiPointView;
+    [SerializeField] private UIPoint uiPointView;
     [SerializeField] private bool isSaveTopLayerPrefs;
-
-    private int shapeIndex;
     
-    private int coordsIndex;
-
-    private Vector3 Position;
-    private CoordType Type;
-    private int ItemIndex;
+    //private int coordsIndex;
+    private int shapeIndex;   
+    private Vector3 position;
+    private CoordType coordType;
+    private int itemIndex;
 
     private void Start()
     {
@@ -34,9 +32,16 @@ public class BezierListView : MonoBehaviour
             //Debug.Log("json1" $"{i} jsonData");
         }        
         UIEventHelper.InvokeInitUI();
+
         UIEventHelper.SubscribeOnDropdownShapeChange(DropdownShapeChange);
         UIEventHelper.SubscribeOnDropdownItemChange(DropdownItemChange);
         UIEventHelper.SubscribeOnDropdownCoordsChange(DropdownCoordsChange);
+        UIEventHelper.SubscribeOnChangePosition(changePosition);
+    }
+
+    private void changePosition(Vector3 pos)
+    {
+        position = pos;
     }
 
     private void DropdownShapeChange(int index)
@@ -46,20 +51,24 @@ public class BezierListView : MonoBehaviour
 
     private void DropdownItemChange(int index)
     {
-       ItemIndex = index;
+       itemIndex = index;
     }
 
-    private void DropdownCoordsChange(int index)
+    private void DropdownCoordsChange(CoordType type)
     {
-        coordsIndex = index;
+        coordType = type;
     }
 
     private void Update()
     {
+        //Debug.Log("upDate");
         Transform child = transform.GetChild(shapeIndex);
         if (child.TryGetComponent(out BezierCurveScript curveScript))
         {
-            curveScript.SetStartPointPosition(Position, Type, ItemIndex);
+            Debug.Log(itemIndex);
+            //Debug.Log("json1" $"{i} jsonData");
+            //Debug.Log("json1" $"{i} jsonData");
+            curveScript.SetStartPointPosition(position, coordType, itemIndex);
         }
     }
     private void OnDestroy()

@@ -1,5 +1,5 @@
 
-public enum CoordType
+public enum CoordType : int
 {
     Start,
     End,

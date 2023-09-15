@@ -3740,7 +3740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30df55856b2cb534fa154067505825c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPointView: {fileID: 1451353937}
   isSaveTopLayerPrefs: 1
 --- !u!1 &1357268040
 GameObject:
@@ -4054,10 +4053,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropdownCoords: {fileID: 2119488432}
   dropdownShapes: {fileID: 1770117315}
-  DropdownItems: {fileID: 174402415}
+  dropdownItems: {fileID: 174402415}
   xSlider: {fileID: 1370655377}
   ySlider: {fileID: 1653582830}
   zSlider: {fileID: 1268170711}
+  bezierListView: {fileID: 1312198115}
 --- !u!114 &1451353938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4070,9 +4070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3816b1b9f15894fbd4b762c2b58041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropdown: {fileID: 1770117315}
-  dropdownItems: {fileID: 174402415}
-  bezierListView: {fileID: 1312198115}
 --- !u!1 &1475692709
 GameObject:
   m_ObjectHideFlags: 0

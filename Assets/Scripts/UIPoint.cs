@@ -11,17 +11,15 @@ public class UIPoint : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown dropdownCoords;
     [SerializeField] private TMP_Dropdown dropdownShapes;
-    [SerializeField] private TMP_Dropdown DropdownItems;
+    [SerializeField] private TMP_Dropdown dropdownItems;
 
     [SerializeField] private Slider xSlider;
     [SerializeField] private Slider ySlider;
     [SerializeField] private Slider zSlider;
 
-    private Vector3 position;
-    //public int Index { get; private set; }
-    //public CoordType Type { get; private set; }
-    //public int ItemIndex { get; private set; }
+    [SerializeField] private BezierListView bezierListView;
 
+    private Vector3 position;
     private float preX, preY, preZ;
 
     //public Action<int> onDropdownShapeChange;
@@ -33,7 +31,7 @@ public class UIPoint : MonoBehaviour
 
     public void Init()
     {
-        DropdownItems.onValueChanged.AddListener(newItem =>
+        dropdownItems.onValueChanged.AddListener(newItem =>
         {
             UIEventHelper.InvokeDropdownItemChange(newItem);
         });
@@ -45,7 +43,7 @@ public class UIPoint : MonoBehaviour
 
         dropdownShapes.onValueChanged.AddListener(index =>
         {
-            DropdownItems.value = 0;
+            dropdownItems.value = 0;
             UIEventHelper.InvokeDropdownShapeChange(index);
         });
 
@@ -63,7 +61,35 @@ public class UIPoint : MonoBehaviour
         {
             preZ = zValue;
         });
+
+
+
+        dropdownShapes.options.Clear();
+
+        List<string> names = bezierListView.GetChildList();
+
+        foreach (string childName in names)
+        {
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(childName);
+            dropdownShapes.options.Add(option);
+        }
+        dropdownShapes.onValueChanged.AddListener(OnScriptsChanged);
+        OnScriptsChanged(0);
     }
+
+    private void OnScriptsChanged(int index)
+    {
+        dropdownItems.options.Clear();
+        int itemCount = bezierListView.GetChildCount(index);
+
+        for (int i = 0; i < itemCount; i++)
+        {
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData(i.ToString());
+            //Debug.Log("i" + i);
+            dropdownItems.options.Add(option);
+        }
+    }
+
     private void Update()
     {
         if (Math.Abs(position.x - preX) > 0.00001f)

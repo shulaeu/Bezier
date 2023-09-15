@@ -8,7 +8,7 @@ using System;
 
 public class BezierListView : MonoBehaviour
 {
-    [SerializeField] private UIPoint uiPointView;
+    //[SerializeField] private UIPoint uiPointView;
     [SerializeField] private bool isSaveTopLayerPrefs;
     
     //private int coordsIndex;
@@ -65,7 +65,8 @@ public class BezierListView : MonoBehaviour
         Transform child = transform.GetChild(shapeIndex);
         if (child.TryGetComponent(out BezierCurveScript curveScript))
         {
-            Debug.Log(itemIndex);
+            //Debug.Log("child");
+            //Debug.Log(itemIndex);
             //Debug.Log("json1" $"{i} jsonData");
             //Debug.Log("json1" $"{i} jsonData");
             curveScript.SetStartPointPosition(position, coordType, itemIndex);

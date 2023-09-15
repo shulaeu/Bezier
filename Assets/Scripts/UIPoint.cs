@@ -17,12 +17,16 @@ public class UIPoint : MonoBehaviour
     [SerializeField] private Slider ySlider;
     [SerializeField] private Slider zSlider;
 
-    [SerializeField] private BezierListView bezierListView;
+    //[SerializeField] private BezierListView bezierListView;
+    
+
+    [SerializeField] private HelperGetChild helperGetChild;
+    //private readonly List<HelperGetChild> helperGetChild = new List<HelperGetChild>();
 
     private Vector3 position;
     private float preX, preY, preZ;
 
-    //public Action<int> onDropdownShapeChange;
+    
 
     private void Awake()
     {
@@ -66,7 +70,8 @@ public class UIPoint : MonoBehaviour
 
         dropdownShapes.options.Clear();
 
-        List<string> names = bezierListView.GetChildList();
+        //List<string> names = bezierListView.GetChildList();
+        List<string> names = helperGetChild.GetChildList();
 
         foreach (string childName in names)
         {
@@ -80,7 +85,8 @@ public class UIPoint : MonoBehaviour
     private void OnScriptsChanged(int index)
     {
         dropdownItems.options.Clear();
-        int itemCount = bezierListView.GetChildCount(index);
+        //int itemCount = bezierListView.GetChildCount(index);
+        int itemCount = helperGetChild.GetChildCount(index);
 
         for (int i = 0; i < itemCount; i++)
         {

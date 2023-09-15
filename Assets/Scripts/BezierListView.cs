@@ -11,7 +11,6 @@ public class BezierListView : MonoBehaviour
     //[SerializeField] private UIPoint uiPointView;
     [SerializeField] private bool isSaveTopLayerPrefs;
     
-    //private int coordsIndex;
     private int shapeIndex;   
     private Vector3 position;
     private CoordType coordType;
@@ -91,30 +90,28 @@ public class BezierListView : MonoBehaviour
         }
     }
 
-    public List<string> GetChildList()
-    {
-        List<string> result = new List<string>();
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform child = transform.GetChild(i);
-            if (child.TryGetComponent(out BezierCurveScript curvescript))
-            {
-                result.Add(child.name);
-            }
-        }
-        return result;
-    }
+    //public List<string> GetChildList()
+    //{
+    //    List<string> result = new List<string>();
+    //    for (int i = 0; i < transform.childCount; i++)
+    //    {
+    //        Transform child = transform.GetChild(i);
+    //        if (child.TryGetComponent(out BezierCurveScript curvescript))
+    //        {
+    //            result.Add(child.name);
+    //        }
+    //    }
+    //    return result;
+    //}
 
-    public int GetChildCount(int index)
-    {
-        var count = 0;
-        //Debug.Log("GetChildCount1");
-        //Debug.Log("indexGetChild" + index);
-        if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
-        {
-            //Debug.Log("GetChildCount2");
-            count = curvescript.startCoords.Count;
-        }
-        return count;
-    }
+    //public int GetChildCount(int index)
+    //{
+    //    var count = 0;
+        
+    //    if (transform.GetChild(index).TryGetComponent(out BezierCurveScript curvescript))
+    //    {
+    //        count = curvescript.startCoords.Count;
+    //    }
+    //    return count;
+    //}
 }

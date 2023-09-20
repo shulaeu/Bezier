@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class CameraMover : MonoBehaviour
 {
-    
-    void Start()
-    {
+    [SerializeField] private float speed = 5f;
         
-    }
-
-    
-    void Update()
+    private void Update()
     {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += new Vector3(0,0,speed * Time.deltaTime);
+        }
         
+        //if (Input.GetKey("KeyCode.D"))
+        //{
+        //    //transform.position += new Vector3(0, 0, speed * Time.deltaTime);
+        //}
+        
+        //if (Input.GetKey("KeyCode.A"))
+        //{
+        //    //transform.position += new Vector3(0, 0, speed * Time.deltaTime);
+        //}
+        
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position -= new Vector3(0, 0, speed * Time.deltaTime);
+        }
     }
 }

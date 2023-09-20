@@ -3111,6 +3111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0778a8a70535a4e4b9c500a9280e2e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &979078947
 GameObject:
   m_ObjectHideFlags: 0
@@ -4024,7 +4025,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1451353936}
   - component: {fileID: 1451353937}
-  - component: {fileID: 1451353938}
   m_Layer: 0
   m_Name: UIPoint
   m_TagString: Untagged
@@ -4070,23 +4070,6 @@ MonoBehaviour:
   xSlider: {fileID: 1370655377}
   ySlider: {fileID: 1653582830}
   zSlider: {fileID: 1268170711}
---- !u!114 &1451353938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451353935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97a71add95942624f979f92d7acd43f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSaveTopLayerPrefs: 0
-  shapeIndex: 0
-  position: {x: 0, y: 0, z: 0}
-  coordType: 0
-  itemIndex: 0
 --- !u!1 &1475692709
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class BezierListView : MonoBehaviour
 
     private void Start()
     {
+        HelperGetChild.SetupTransform(transform);
         for (int i = 0; i < transform.childCount; i++)
         {
             
@@ -36,6 +37,7 @@ public class BezierListView : MonoBehaviour
         UIEventHelper.SubscribeOnDropdownItemChange(DropdownItemChange);
         UIEventHelper.SubscribeOnDropdownCoordsChange(DropdownCoordsChange);
         UIEventHelper.SubscribeOnChangePosition(changePosition);
+
     }
 
     private void changePosition(Vector3 pos)

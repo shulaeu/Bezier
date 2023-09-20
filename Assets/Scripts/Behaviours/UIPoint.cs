@@ -20,7 +20,7 @@ public class UIPoint : MonoBehaviour
     //[SerializeField] private BezierListView bezierListView;
     
 
-    [SerializeField] private HelperGetChild helperGetChild;
+    //[SerializeField] private HelperGetChild helperGetChild;
     //private readonly List<HelperGetChild> helperGetChild = new List<HelperGetChild>();
 
     private Vector3 position;
@@ -70,8 +70,7 @@ public class UIPoint : MonoBehaviour
 
         dropdownShapes.options.Clear();
 
-        //List<string> names = bezierListView.GetChildList();
-        List<string> names = helperGetChild.GetChildList();
+        List<string> names = HelperGetChild.GetChildList();
 
         foreach (string childName in names)
         {
@@ -85,8 +84,7 @@ public class UIPoint : MonoBehaviour
     private void OnScriptsChanged(int index)
     {
         dropdownItems.options.Clear();
-        //int itemCount = bezierListView.GetChildCount(index);
-        int itemCount = helperGetChild.GetChildCount(index);
+        int itemCount = HelperGetChild.GetChildCount(index);
 
         for (int i = 0; i < itemCount; i++)
         {

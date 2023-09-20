@@ -7,10 +7,15 @@ using static UnityEngine.Random;
 
 
 
-public class HelperGetChild : BezierListView
-//public class HelperGetChild : MonoBehaviour
+public static class HelperGetChild
 {
-    public List<string> GetChildList()
+    private static Transform transform;
+
+    public static void SetupTransform(Transform transform)
+    {
+        HelperGetChild.transform = transform;
+    }
+    public static List<string> GetChildList()
     {
         List<string> result = new List<string>();
         for (int i = 0; i < transform.childCount; i++)
@@ -24,7 +29,7 @@ public class HelperGetChild : BezierListView
         return result;
     }
 
-    public int GetChildCount(int index)
+    public static int GetChildCount(int index)
     {
         var count = 0;
 
@@ -35,11 +40,3 @@ public class HelperGetChild : BezierListView
         return count;
     }
 }
-
-//Transform[] Childrens = GetComponentsInChildren<Transform>();
-//foreach (Transform children in Childrens)
-//    if (children.gameObject.name == "Gun1")
-//    {
-//        // Do something
-//        break;
-//    }

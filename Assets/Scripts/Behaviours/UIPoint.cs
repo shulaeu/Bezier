@@ -17,11 +17,7 @@ public class UIPoint : MonoBehaviour
     [SerializeField] private Slider ySlider;
     [SerializeField] private Slider zSlider;
 
-    //[SerializeField] private BezierListView bezierListView;
     
-
-    //[SerializeField] private HelperGetChild helperGetChild;
-    //private readonly List<HelperGetChild> helperGetChild = new List<HelperGetChild>();
 
     private Vector3 position;
     private float preX, preY, preZ;

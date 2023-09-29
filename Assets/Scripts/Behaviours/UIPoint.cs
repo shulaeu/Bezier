@@ -22,7 +22,8 @@ public class UIPoint : MonoBehaviour
     private Vector3 position;
     private float preX, preY, preZ;
 
-    
+    private float delay = 0.5f;
+    private float tempDelay=0f;
 
     private void Awake()
     {
@@ -100,7 +101,15 @@ public class UIPoint : MonoBehaviour
         }
         else
         {
-            xSlider.value = 0;
+            if (tempDelay <= delay)
+            {
+                tempDelay += Time.deltaTime;
+            }
+            else
+            {
+                tempDelay = 0;
+                xSlider.value = 0;
+            }
         }
 
         if (Math.Abs(position.y - preY) > 0.00001f)
@@ -110,7 +119,15 @@ public class UIPoint : MonoBehaviour
         }
         else
         {
-            ySlider.value = 0;
+            if (tempDelay <= delay)
+            {
+                tempDelay += Time.deltaTime;
+            }
+            else
+            {
+                tempDelay = 0;
+                ySlider.value = 0;
+            }
         }
 
         if (Math.Abs(position.z - preZ) > 0.00001f)
@@ -120,7 +137,15 @@ public class UIPoint : MonoBehaviour
         }
         else
         {
-            zSlider.value = 0;
+            if (tempDelay <= delay)
+            {
+                tempDelay += Time.deltaTime;
+            }
+            else
+            {
+                tempDelay = 0;
+                zSlider.value = 0;
+            }
         }
     }
 }

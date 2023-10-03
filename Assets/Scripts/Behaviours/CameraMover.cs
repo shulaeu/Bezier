@@ -15,6 +15,15 @@ public class CameraMover : MonoBehaviour
     private Vector3 inputVector;
     private bool joystickIsActive = false;
 
+    private void Start()
+    {
+        UIEventHelper.SubscribeOnToggleJoystick(b =>
+        {
+            moveJoystick.gameObject.SetActive(b);
+            rotateJoystick.gameObject.SetActive(b);
+        });
+    }
+
     private void Update()
     {
         //Debug.Log(1);

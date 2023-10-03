@@ -5,6 +5,8 @@ using System;
 
 public static class UIEventHelper
 {
+    private static event Action<bool> onToggleJoystick;
+
     private static event Action<int> onDropdownShapeChange;
    
     private static event Action<int> onDropdownItemChange;
@@ -15,6 +17,14 @@ public static class UIEventHelper
 
     private static event Action onInitUI;
 
+    public static void SubscribeOnToggleJoystick(Action<bool> action)
+    {
+        onToggleJoystick += action;
+    }
+    public static void InvokeToggleJoystick(bool value)
+    {
+        onToggleJoystick?.Invoke(value);
+    }
     public static void SubscribeOnChangePosition(Action<Vector3> action)
     {
         onChangePosition += action;

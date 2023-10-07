@@ -13,7 +13,7 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private Joystick rotateJoystick;
 
     private Vector3 inputVector;
-    private bool joystickIsActive = false;
+    //private bool joystickIsActive = false;
 
     private void Start()
     {

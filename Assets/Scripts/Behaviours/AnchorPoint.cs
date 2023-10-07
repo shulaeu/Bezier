@@ -12,14 +12,14 @@ public class AnchorPoint : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Camera.main != null)
+        if (Camera.main == null)
         {
             return;
         }
 
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
 
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.z, screenPoint.y);
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePosition);
 
         offset = gameObject.transform.position - worldPoint;

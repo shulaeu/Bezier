@@ -1,36 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : BaseMainMenu
 {
+    [Header("MainMenu")]
     [SerializeField] private Button startButton;
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private Button exitButton;
-
-    private void Start()
+    
+    protected override void Init()
     {
         startButton.onClick.AddListener(StartGame);
-        optionsButton.onClick.AddListener(ShowOptions);
-        exitButton.onClick.AddListener(ExitGame);
+
+        base.Init();
     }
+    protected override void ExitGame()
+        {
+            Application.Quit();
+        }
 
     private void StartGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync("GameScene");
     }
-
-    private void ShowOptions()
-    {
-        SceneManager.LoadSceneAsync(2);
-    }
-
-    private void ExitGame()
-    {
-        SceneManager.LoadSceneAsync(3);
-    }
-
 }

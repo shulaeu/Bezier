@@ -6,17 +6,21 @@ public class MainMenu : BaseMainMenu
 {
     [Header("MainMenu")]
     [SerializeField] private Button startButton;
-    
+
     protected override void Init()
     {
-        startButton.onClick.AddListener(StartGame);
+        if (startButton != null)
+        {
+            startButton.onClick.AddListener(StartGame);
+        }
+
 
         base.Init();
     }
     protected override void ExitGame()
-        {
-            Application.Quit();
-        }
+    {
+        Application.Quit();
+    }
 
     private void StartGame()
     {

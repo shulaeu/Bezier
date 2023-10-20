@@ -2,22 +2,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : BaseMainMenu
+public class MainMenu : MonoBehaviour
 {
-    [Header("MainMenu")]
     [SerializeField] private Button startButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private Button exitButton;
+    [SerializeField] private OptionView optionViewPrefab;
 
-    protected override void Init()
+    private void Start()
     {
-        if (startButton != null)
-        {
-            startButton.onClick.AddListener(StartGame);
-        }
-
-
-        base.Init();
+        Init();
     }
-    protected override void ExitGame()
+
+    private void Init()
+    {
+        OptionManager optionManager = new OptionManager(optionViewPrefab, transform);
+
+        startButton.onClick.AddListener(StartGame);
+        optionsButton.onClick.AddListener(optionManager.ShowOptions);
+        exitButton.onClick.AddListener(ExitGame);
+    }
+    private void ExitGame()
     {
         Application.Quit();
     }
